@@ -5,7 +5,7 @@ url: "http://redtwowolf.github.io" # the base hostname & protocol for your site
 # THEME-SPECIFIC CONFIGURATION
 theme_settings:
   # Meta
-  title: redtwodog
+  title: redtwowolf
   avatar: avatar.png
   gravatar: # Email MD5 hash
   description: "A website about to learning Swift" # used by search engines
