@@ -50,3 +50,7 @@ feature-img: "img/green.png"
 
 针对超类型编程，执行时会根据实际情况执行真正的行为。举个🌰：
 <img class="alignnone size-full wp-image-35" src="http://ogkg37m8j.bkt.clouddn.com/image/designpattern/designpattern_duck_12.jpg" alt="designpattern_duck_12"/>
+
+<h3>最后</h3>
+是不是对设计模式有了感性的认识呢？
+<h6>记读 ---《Head First》</h6>
