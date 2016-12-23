@@ -7,6 +7,7 @@ feature-img: "img/orange.jpg"
 ---
 
 <h3>一、 关于</h3>
+<img class="alignnone size-full wp-image-35" src="http://ogkg37m8j.bkt.clouddn.com/image/packagemanager/cocoapods&carthage.jpg" alt="packagemanager_cocoapods&carthage"/>
 [Cocoapods](https://cocoapods.org/)、 [Carthage](https://github.com/Carthage/Carthage)都是第三方框架管理工具
 
 <h3>二、 如何集成到项目中</h3>
