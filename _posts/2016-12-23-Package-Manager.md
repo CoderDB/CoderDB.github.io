@@ -72,3 +72,8 @@ pod init 或者 touch Podfile
 * 删除Xcode->Target->Build Settings->Framework Search Paths
 
 <h3>四、 原理</h3>
+
+*  Cocoapods 将第三方库以target的形式添加到Pods project，而Pods project在编译时生成libPods.a的静态库供母工程使用。
+*  Carthage 依靠xcodebuild 将第三方库build成.framework
+
+[更多Cocoapods原理](https://www.objccn.io/issue-6-4/)
