@@ -7,10 +7,12 @@ feature-img: "img/orange.jpg"
 ---
 
 <h3>一、 关于</h3>
+---
 <img class="alignnone size-full wp-image-35" src="http://ogkg37m8j.bkt.clouddn.com/image/packagemanager/cocoapods&carthage.jpg" alt="packagemanager_cocoapods&carthage"/>
 [Cocoapods](https://cocoapods.org/)、 [Carthage](https://github.com/Carthage/Carthage)都是第三方框架管理工具
 
 <h3>二、 如何集成到项目中</h3>
+---
 <h4>1. 安装</h4>
 [Cocoapods安装方法](https://guides.cocoapods.org/using/getting-started.html#getting-started)、
 [Carthage安装方法](https://github.com/Carthage/Carthage#installing-carthage)
@@ -31,7 +33,7 @@ touch Podfile // 只创建一个名为Podfile的空文件
 
 * 将库添加到Podfile
 
-<img class="alignnone size-full wp-image-35" src="http://ogkg37m8j.bkt.clouddn.com/image/packagemanager/podfile.jpg" alt="packagemanager_podfile"/>
+<img class="alignnone size-full wp-image-35" src="http://ogkg37m8j.bkt.clouddn.com/image/packagemanager/podfi.jpg" alt="packagemanager_podfi"/>
 
 * 执行pod install
 {% highlight swift %}
@@ -59,6 +61,7 @@ carthage update --platform iOS //fetch指定平台的代码
 CMD+B看看是不是编译成功了！
 
 <h3>三、 如果不想用了怎么卸载？</h3>
+---
 <em><strong> 1. 对于Cocoapods来说稍微有点繁琐 </strong></em>
 
 * 删除Cocoapods生成的文件
@@ -79,6 +82,7 @@ CMD+B看看是不是编译成功了！
 * 删除Xcode->Target->Build Settings->Framework Search Paths
 
 <h3>四、 原理</h3>
+---
 
 *  Cocoapods 将第三方库以target的形式添加到Pods project，而Pods project在编译时生成libPods.a的静态库供母工程使用。
 *  Carthage 依靠xcodebuild 将第三方库build成.framework
