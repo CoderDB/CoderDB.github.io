@@ -256,4 +256,4 @@ for case .none in languages {
 
 [关于Optionals的更过内容](https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/TheBasics.html#//apple_ref/doc/uid/TP40014097-CH5-ID309)
 
-[文中举例Playground]()
+[文中举例Playground](https://github.com/redtwowolf/redtwowolf.github.io/blob/master/_code/Optionals.playground/Contents.swift)
