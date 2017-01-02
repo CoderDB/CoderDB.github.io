@@ -36,20 +36,24 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 h1 {
-  font-size: 2em;
+  font-size: 2.5em;
 }
 h2 {
-  font-size: 1.5em;
+  font-size: 2.0em;
 }
 h3 {
-  font-size: 1.05em;
+  font-size: 1.5em;
 }
 h4 {
-  font-size: 0.95em;
+  font-size: 1.05em;
 }
 blockquote {
-    border-left: 2px solid;
-    padding: 1em 1em;
+    // border-left: 2px solid;
+    // padding: 1em 1em;
+
+    border-radius: 5px;
+    padding: 0.1px 1em;
+    background-color: #F6A623;
 }
 blockquote p:last-child,
 footer p:last-child {
