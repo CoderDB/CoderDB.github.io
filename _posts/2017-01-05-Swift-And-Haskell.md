@@ -14,6 +14,8 @@ feature-img: "img/orange.jpg"
 
 $$ f(x) = \int \frac{2x^2+4x+6}{x-2} $$
 
+于是就以这篇文章记录这个学习的过程，如果你发现错误或不妥[请点击](https://github.com/redtwowolf/redtwowolf.github.io/issues)或者[联系我](mailto:dongbinghouy@gmail.com)，非常感谢🙏
+
 <h2>二、常量 </h2>
 在 **Swift** 中声明一个 **常量** 像这样
 {% highlight swift %}
