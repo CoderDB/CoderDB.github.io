@@ -255,3 +255,154 @@ print(testNums)
 {% endhighlight %}
 
 > <h3> 3. !! </h3>
+
+**!! 就是按照索引取出 List 中的元素**。
+{% highlight haskell %}
+ghci>letters !! 2 // 🔊 哎...对面的👨🏿‍💻👩‍💻👨🏻‍💻👩🏾‍💻之前声明的 numbers 是 [1, 5, 8, 20] ，letters 是 ['a', 'b', 'c']
+'c'
+
+ghci>numbers !! 3
+20
+
+ghci>numbers !! 100
+*** Exception: Prelude.!!: index too large
+// 超出了 List 的范围就会报错
+
+ghci>"Haskell" !! 5
+'l'
+{% endhighlight %}
+同样 **Swift** 中是这样的👇
+{% highlight swift %}
+// 获取一个字符串索引处的元素
+let haskellStr = "Haskell"
+let firstIdx = haskellStr.startIndex
+print(haskellStr[firstIdx])
+// H
+
+let fifthIdx = haskellStr.index(firstIdx, offsetBy: 5)
+print(haskellStr[fifthIdx])
+// l
+// 获取数组索引处的元素就不说了！
+{% endhighlight %}
+
+> <h3> 4. [[]] </h3>
+
+**List** 嵌套。
+{% highlight haskell %}
+ghci>let nestedNums = [[1, 2], [4, 5, 6], [10, 20, 30]]
+ghci>nestedNums
+[[1,2],[4,5,6],[10,20,30]]
+
+ghci>nestedNums ++ [[100, 200, 300]]
+[[1,2],[4,5,6],[10,20,30],[100,200,300]]
+
+ghci>[10] : nestedNums
+[[10],[1,2],[4,5,6],[10,20,30]]
+
+ghci>[45, 56] : nestedNums
+[[45,56],[1,2],[4,5,6],[10,20,30]]
+
+ghci>nestedNums !! 2
+[10,20,30]
+{% endhighlight %}
+
+> <h3> 5. List怪兽 </h3>
+
+几个常用函数 | 描述
+-------------|-------------
+head | 返回一个 List 的头部
+tail | 返回除了 head 剩下的部分
+last | 返回 List 最后一个元素
+init | 返回 除去 last 剩下的部分
+
+所以说 **List** 是不是这样一只怪兽啊！
+
+![](http://ogkg37m8j.bkt.clouddn.com/image/haskellandswift/list_monster.png)
+
+这里还有几个 | 描述
+-------------|-------------
+length | 返回 List 的长度
+null | List 为空则返回 True
+reverse | 反转 List 👉 👈
+maximum | 返回 List 中最大的那个元素
+minimum | 返回 List 中最小的那个元素
+sum | 返回 List 中所有元素的和
+product | 返回 List 中所有元素的积
+take n | 返回 List 中前 n 个元素
+drop n | 删除 List 中前 n 个元素，返回剩下的部分
+elem x | 判断 x 元素是否在 List 内，是返回 True
+
+下面就让我们来试一试吧！
+{% highlight haskell %}
+🔊🔊🔊 letters 是 ['a', 'b', 'c'] ，numbers 是 [1, 5, 8, 20]
+
+ghci>head letters
+'a'
+
+ghci>tail letters
+"bc"
+
+ghci>last letters
+'c'
+
+ghci>init letters
+"ab"
+
+ghci>length letters
+3
+
+ghci>null letters
+False
+
+ghci>reverse letters
+"cba"
+
+ghci>maximum letters
+'c'
+
+ghci>minimum letters
+'a'
+
+ghci>sum letters
+
+<interactive>:597:1: error:
+    • No instance for (Num Char) arising from a use of ‘sum’
+    • In the expression: sum letters
+      In an equation for ‘it’: it = sum letters
+// 对一个不可求和的 List 做 sum 就会报这样的错误
+
+ghci>sum numbers
+34
+
+ghci>product numbers
+800
+
+ghci>take 2 letters
+"ab"
+
+ghci>take 10 letters
+"abc"
+// 当你 take 的元素个数超过了 List 的 length 只能得到原 List
+
+ghci>take 0 letters
+""
+// 当你 take 0 个元素就会得到一个空的 List
+
+ghci>drop 1 letters
+"bc"
+
+ghci>drop 20 letters
+""
+// 当你 drop 的元素个数超过了 List 的 length 就会得到一个空的 List
+
+ghci>elem 'a' letters
+True
+ghci>'a' `elem` letters
+True
+// 这两者是等价的，后者是以中缀函数的方式调用
+{% endhighlight %}
+哇！终于试完了！NO NO NO！还有 **Swift** 🙀 😒😒😒
+{% highlight swift %}
+{% endhighlight %}
+
+<h6>持续更新...</h6>
