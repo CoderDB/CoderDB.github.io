@@ -1,7 +1,7 @@
 ---
 layout: post
 date: 2017-01-05
-title: Swift And Haskell
+title: Haskell And Swift
 feature-img: "img/orange.jpg"
 
 ---
