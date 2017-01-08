@@ -3,28 +3,8 @@ layout: post
 date: 2017-01-05
 title: Haskell And Swift
 feature-img: "img/orange.jpg"
-
 ---
 
-<<<<<<< HEAD
-<h2>一、缘何而起</h2>
----
-
-只因 **Haskell** 有趣
-
-<h2>二、var</h2>
-在 **Swift** 中 **var** 是声明一个 **变量** 的关键字
-{% highlight swift %}
-var a = 5
-
-var something = "something"
-{% endhighlight %}
-在 **Haskell** 中的 **var**
-{% highlight haskell %}
-var a = 5
-
-var something = "something"
-=======
 <h2>一、为什么是 Haskell ?</h2>
 ---
 一句话，只因 **Haskell** 有趣。
@@ -98,5 +78,4 @@ ghci>head ["hello", "my", "friend"]
 {% highlight swift %}
 let someArray = [1, 2, 3]
 var anotherArray: [String] = []
->>>>>>> dev
 {% endhighlight %}
