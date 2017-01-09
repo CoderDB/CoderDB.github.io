@@ -402,7 +402,78 @@ True
 // 这两者是等价的，后者是以中缀函数的方式调用
 {% endhighlight %}
 哇！终于试完了！NO NO NO！还有 **Swift** 🙀 😒😒😒
+<!-- 这里开始Swift -->
 {% highlight swift %}
+let haskell = "Haskell"
+print(haskell)
+// Haskell
+
+//head
+let head = haskell[haskell.startIndex]
+print(head)
+// H
+
+//tail
+let secondIdx = haskell.index(after: haskell.startIndex)
+let range = Range(uncheckedBounds: (lower: secondIdx, upper: haskell.endIndex))
+let tail = haskell.substring(with: range)
+print(tail)
+//当然你还可以使用其他方法
+
+//last
+let last = haskell.characters.last
+print(last)
+//Optional("l")
+
+//init
+let `init` = haskell.substring(with: range)
+print(`init`)
+// askell
+
+//length
+let length = haskell.characters.count
+//let length = haskell.lengthOfBytes(using: String.Encoding.utf8)
+print(length)
+// 7
+
+//null
+let null = haskell.isEmpty
+print(null)
+// false
+
+//reverse
+let reverseCharacterView = haskell.characters.reversed()
+let reverse = String(reverseCharacterView)
+print(reverse)
+// lleksaH
+
+//maximum
+let maximum = haskell.characters.max()
+print(maximum)
+// Optional("s")
+
+//mimimum
+let minimum = haskell.characters.min()
+print(minimum)
+// Optional("H")
+
+//take n
+let take5 = haskell.substring(to: haskell.index(haskell.startIndex, offsetBy: 5))
+// let anotherTake5 = haskell.characters.dropLast(haskell.characters.count - 5)
+// String(anotherTake5) // Haske
+print(take5)
+// Haske
+
+// drop n
+let drop3CharacterView = haskell.characters.dropFirst(3)
+let drop3 = String(drop3CharacterView)
+print(drop3)
+// kell
+
+//elem x
+let elem = haskell.contains("a")
+print(elem)
+// true
 {% endhighlight %}
 
 <h6>持续更新...</h6>
