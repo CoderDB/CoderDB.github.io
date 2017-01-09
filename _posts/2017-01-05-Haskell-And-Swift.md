@@ -475,5 +475,150 @@ let elem = haskell.contains("a")
 print(elem)
 // true
 {% endhighlight %}
+接下来以 **Swift** 中的 **Array** 来实现 **sum、product**。
+{% highlight swift %}
+let numbers = [1, 5, 8, 20]
+//sum
+let sum = numbers.reduce(0, +)
+print(sum)
+// 34
+
+//product
+let product = numbers.reduce(1, *)
+print(product)
+// 800
+{% endhighlight %} 终于完了😓😓😓😓😓😓😓😓😓😓😓😓你有病啊一个一个敲，谁不会似的😒😒😒😒😒😒😒😒😒😒😒**********************
+
+> <h3> 5. Range </h3>
+
+**Range** 就是一个区间。
+{% highlight haskell %}
+ghci>[1..10]
+[1,2,3,4,5,6,7,8,9,10]
+
+ghci>[1, 2..10]
+[1,2,3,4,5,6,7,8,9,10]
+
+ghci>['a'..'z']
+"abcdefghijklmnopqrstuvwxyz"
+
+ghci>['a', 'c'..'z']
+"acegikmoqsuwy"
+{% endhighlight %}
+这就是 **Range** 了！它还可以指定步长，比如🌰🌰🌰🌰🌰🌰
+{% highlight haskell %}
+ghci>[1, 3..10]
+[1,3,5,7,9]
+
+ghci>[2, 4..10]
+[2,4,6,8,10]
+{% endhighlight %}
+但是你不能像这样 **[10..1]** 取得 **[10,9,8,7,6,5,4,3,2,1]**
+{% highlight haskell %}
+ghci>[10..1]
+[]
+// 看到了吧！给你一个空 List，但是你可以用步长
+ghci>[10, 9..1]
+[10,9,8,7,6,5,4,3,2,1]
+{% endhighlight %}
+你还可以这样，取10个最小的6的倍数🤔🤔🤔6，12，18···  
+{% highlight haskell %}
+ghci>let example = [6, 12..10*6]
+ghci>example
+[6,12,18,24,30,36,42,48,54,60]
+ghci>length example
+10
+{% endhighlight %}
+
+取前10个3的幂，怎么解？🤔🤔🤔 3，9，27···
+{% highlight haskell %}
+ghci>let example2 = [3, 9..10 * 3 * 3]
+ghci>example2
+[3,9,15,21,27,33,39,45,51,57,63,69,75,81,87]
+ghci>length example2
+15
+{% endhighlight %}
+Oops!不是取10个吗？怎么有15个？而且也不是幂啊！这是因为仅凭前几项 List 的后项是不能确定的。就像数列的前3项为1, 2, 4 那么第四项是什么？
+
+
+利用 **Range** 构造 **List** 的一些函数 | 描述
+------|------
+cycle list | 生成无限重复 list 的 list
+repeat n | 生成无限个 n 的 list
+replicate n x | 生成 n 个 x 的 list
+
+* cycle list
+{% highlight haskell %}
+ghci> cycle [1, 2, 3]
+// 😄😄😄有没有眼花😹😹😹😹😹
+
+ghci>take 10 (cycle [1, 2, 3])
+[1,2,3,1,2,3,1,2,3,1]
+{% endhighlight %}
+
+* repeat n
+{% highlight haskell %}
+ghci>take 8 (repeat 7)
+[7,7,7,7,7,7,7,7]
+
+ghci>take 5 (repeat [1, 2, 3])
+[[1,2,3],[1,2,3],[1,2,3],[1,2,3],[1,2,3]]
+
+ghci>take 5 (repeat [[1], [3]])
+[[[1],[3]],[[1],[3]],[[1],[3]],[[1],[3]],[[1],[3]]]
+{% endhighlight %}
+
+* replicate n x
+{% highlight haskell %}
+ghci>replicate 8 7
+[7,7,7,7,7,7,7,7]
+
+ghci>replicate 5 [1, 2, 3]
+[[1,2,3],[1,2,3],[1,2,3],[1,2,3],[1,2,3]]
+
+ghci>replicate 5 [[1], [3]]
+[[[1],[3]],[[1],[3]],[[1],[3]],[[1],[3]],[[1],[3]]]
+{% endhighlight %}
+当然了，我们是要和 **Swift** 做比较的嘛！🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰
+{% highlight swift %}
+let example = String(repeating: "5", count: 10)
+print(example)
+// 5555555555
+
+let example2 = String(repeating: "5, 6, 7 ", count: 3)
+print(example2)
+// 5, 6, 7 5, 6, 7 5, 6, 7
+
+let example3 = String(repeating: "[1, 2, 3], ", count: 5)
+print(example3)
+// [1, 2, 3], [1, 2, 3], [1, 2, 3], [1, 2, 3], [1, 2, 3],
+{% endhighlight %}
+
+循环初始化数组🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰
+{% highlight swift %}
+let exam = Array(repeatElement(5, count: 8))
+print(exam)
+// [5, 5, 5, 5, 5, 5, 5, 5]
+
+let exam2 = Array(repeatElement("abc", count: 3))
+print(exam2)
+// ["abc", "abc", "abc"]
+
+let exam3 = Array(repeating: [10], count: 5)
+print(exam3)
+// [[10], [10], [10], [10], [10]]
+
+let exam4 = Array(repeating: [exam, exam2, exam3], count: 1)
+print(exam4)
+// [[[5, 5, 5, 5, 5, 5, 5, 5], ["abc", "abc", "abc"], [[10], [10], [10], [10], [10]]]]
+
+let exam5 = [Int](repeatElement(5, count: 3))
+print(exam5)
+// [5, 5, 5]
+
+let exam6 = Array(1..<10)  // [Int](1..<10)
+print(exam6)
+// [1, 2, 3, 4, 5, 6, 7, 8, 9]
+{% endhighlight %}
 
 <h6>持续更新...</h6>
