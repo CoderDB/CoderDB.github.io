@@ -734,6 +734,128 @@ ghci>removeUppercase haskell
 "askell"
 {% endhighlight %}
 
+> <h3> 7. Tuple </h3>
+
+**Tuple** 就是把多个值合成一个复合值。通过一些简单的🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰来认识它。
+{% highlight haskell %}
+-- 这就是一个最简单的 Tuple
+ghci>(5, 10)
+(5,10)
+
+-- Tuple 中可以有不同的类型
+ghci>let hasABS = ("ABS", True)
+ghci>hasABS
+("ABS",True)
+
+-- 可以有多个元素
+ghci>let tom = ("Tom", "Cat", 25)
+ghci>tom
+("Tom","Cat",25)
+
+-- Tuple 中存有 List
+ghci>(("Jerry", 123), (["Apple"], ['O', 'r', 'a', 'n', 'g', 'e']), tom)
+(("Jerry",123),(["Apple"],"Orange"),("Tom","Cat",25))
+{% endhighlight %}
+**Tuple** 像 **List** 一样可以比大小。
+
+* Tuple
+{% highlight haskell %}
+ghci>(1, 2) > (3, 5)
+False
+
+ghci>(1, 1, 3) > (1, 1, 2)
+True
+
+-- 有没有发现点什么？
+ghci>(1, 1, 3) == ((1), (1), (3))
+True
+
+ghci>:t (1)
+(1) :: Num t => t
+
+ghci>:t 1
+1 :: Num t => t
+-- 单个元素的 Tuple 是没意义的😄😄😄
+{% endhighlight %}
+* List
+{% highlight haskell %}
+ghci>[1, 2] > [3, 5]
+False
+
+ghci>[1, 1, 3] > [1, 1, 2]
+True
+
+ghci>[1, 1, 3] /= [1, 1, 2]
+True
+{% endhighlight %}
+都是逐个元素比较。但是不能比较不同的个数的 Tuple ，而 List 是可以的。
+{% highlight haskell %}
+-- Tuple
+ghci>(1, 1, 3) > (1, 1, 2, 4)
+
+<interactive>:236:13: error:
+    • Couldn't match expected type ‘(Integer, Integer, Integer)’
+                  with actual type ‘(Integer, Integer, Integer, Integer)’
+    • In the second argument of ‘(>)’, namely ‘(1, 1, 2, 4)’
+      In the expression: (1, 1, 3) > (1, 1, 2, 4)
+      In an equation for ‘it’: it = (1, 1, 3) > (1, 1, 2, 4)
+ghci>
+
+-- List
+ghci>[1, 1, 3] > [1, 1, 2, 4]
+True
+{% endhighlight %}
+关于 **Tuple** 有几个常用函数。
+
+* fst: 返回 Tuple 的首项
+* snd: 返回 Tuple 的后项
+* zip: 生成一组配对的 List
+
+{% highlight haskell %}
+ghci>let xiaoMing = ("xiaoMing", 20)
+
+ghci>fst xiaoMing
+"xiaoMing"
+
+ghci>snd xiaoMing
+20
+{% endhighlight %}
+
+**fst、snd** 只能作用与二元组，不能用在三元或四元组······之上。
+{% highlight haskell %}
+ghci>tom
+("Tom","Cat",25)
+
+ghci>fst tom
+
+<interactive>:261:5: error:
+    • Couldn't match expected type ‘(a, b0)’
+                  with actual type ‘([Char], [Char], Integer)’
+    • In the first argument of ‘fst’, namely ‘tom’
+      In the expression: fst tom
+      In an equation for ‘it’: it = fst tom
+    • Relevant bindings include it :: a (bound at <interactive>:261:1)
+ghci>
+{% endhighlight %}
+**zip** 取两个 List，然后交叉配对后返回一个含有 Tuple 的新的 List。
+{% highlight haskell %}
+ghci>zip [1, 2, 3, 4, 5] ["one", "two", "three", "four", "five"]
+[(1,"one"),(2,"two"),(3,"three"),(4,"four"),(5,"five")]
+
+-- 对于不同长度的 List ，zip 按较短原则匹配。（不知道有没有较短原则这么叫的？？？🤔🤔🤔）
+ghci>zip [1..5] ["apple"]
+[(1,"apple")]
+
+ghci>zip [1..] ['a'..'z']
+[(1,'a'),(2,'b'),(3,'c'),(4,'d'),(5,'e'),(6,'f'),(7,'g'),(8,'h'),(9,'i'),(10,'j'),(11,'k'),(12,'l'),(13,'m'),(14,'n'),(15,'o'),(16,'p'),(17,'q'),(18,'r'),(19,'s'),(20,'t'),(21,'u'),(22,'v'),(23,'w'),(24,'x'),(25,'y'),(26,'z')]
+{% endhighlight %}
+那么怎么好好使用 Tuple 呢？举个🌰🌰怎么取得三边长都小于等于10的直角三角形，且 a 边小于 b 边， b 边小于 c 边。
+{% highlight haskell %}
+let rightTriangles = [(a, b, c) | c <- [1..10], b <- [1..c], a <- [1..b], a^2 + b^2 == c^2]
+ghci>rightTriangles
+[(3,4,5),(6,8,10)]
+{% endhighlight %}
+Cool! 简直完美👏👏🏻👏🏼👏🏼👏🏽👏🏽👏🏾👏🏿
 
 
 [跟过关于Swift的细节以及code、playground](https://github.com/redtwowolf/redtwowolf.github.io/tree/master/_code/HaskellAndSwift/HaskellAndSwift.playground)
