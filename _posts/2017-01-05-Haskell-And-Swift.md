@@ -734,4 +734,10 @@ ghci>removeUppercase haskell
 "askell"
 {% endhighlight %}
 
+
+
+[跟过关于Swift的细节以及code、playground](https://github.com/redtwowolf/redtwowolf.github.io/tree/master/_code/HaskellAndSwift/HaskellAndSwift.playground)
+
+[test.hs](https://github.com/redtwowolf/redtwowolf.github.io/tree/master/_code/HaskellAndSwift/test.hs)
+
 <h6>持续更新...</h6>
