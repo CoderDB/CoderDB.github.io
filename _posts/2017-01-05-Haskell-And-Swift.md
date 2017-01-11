@@ -946,15 +946,13 @@ print(Array(zipResult))
 let zip2 = zip(words, 100...Int.max)
 print(Array(zip2))
 // [("one", 100), ("two", 101), ("three", 102), ("four", 103), ("five", 104)]
-{% endhighlight %} 
+{% endhighlight %}
 
+<h2>七、结尾</h2>
+---
 
-
-
-
+到这里总算对 **Haskell** 有了一个不错的认识，更是一个非常有趣的开始。勇往直前......✊✊🏻✊🏼✊🏽✊🏾✊🏿✊✊🏻✊🏼✊🏽✊🏾✊🏿
 
 [更多关于Swift的细节以及code、playground](https://github.com/redtwowolf/redtwowolf.github.io/tree/master/_code/HaskellAndSwift/HaskellAndSwift.playground)
 
 [test.hs](https://github.com/redtwowolf/redtwowolf.github.io/tree/master/_code/HaskellAndSwift/test.hs)
-
-<h6>持续更新...</h6>
