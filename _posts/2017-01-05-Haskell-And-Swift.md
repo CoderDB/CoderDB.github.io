@@ -855,10 +855,101 @@ let rightTriangles = [(a, b, c) | c <- [1..10], b <- [1..c], a <- [1..b], a^2 + 
 ghci>rightTriangles
 [(3,4,5),(6,8,10)]
 {% endhighlight %}
-Cool! 简直完美👏👏🏻👏🏼👏🏼👏🏽👏🏽👏🏾👏🏿
+Cool! 简直完美👏👏🏻👏🏼👏🏼👏🏽👏🏽👏🏾👏🏿 然而我们还需要和 Swift 比较一下。
+
+在 **Swift** 中 **Tuple** 是什么样呢？
+{% highlight swift %}
+// 这就是一个 Tuple
+let tuple1 = (5, 8)
+print(tuple1)
+// (5, 8)
+
+let hasABS = ("ABS", true)
+print(hasABS)
+// ("ABS", true)
+
+let tom = ("Tom", "Cat", 25)
+print(tom)
+// ("Tom", "Cat", 25)
+
+let tuple4 = (("Jerry", 123), (["Apple"], "Origin"), tom)
+print(tuple4)
+// (("Jerry", 123), (["Apple"], "Origin"), ("Tom", "Cat", 25))
+{% endhighlight %}
+与 Haskell 的 Tuple 差别不多吧！不过 Swift 中的 Tuple 功能更强大。比如以下标或者命名获取 Tuple 中的元素而不局限与个数，比 **fst、snd** 方便多了！
+{% highlight swift %}
+let tuple4 = (("Jerry", 123), (["Apple"], "Origin"), tom)
+print(tuple4.2.1)
+// Cat
+
+let tuple5 = (name: "Tom", gender: 1, age: 25)
+print(tuple5.gender)
+print(tuple5.0)
+// 1
+// Tom
+{% endhighlight %}
+在 Swift 中 **Tuple** 也是可以比较的。🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰
+{% highlight swift %}
+let tuple6: (Int, Int, Int) = (1, 2, 8)
+let tuple7 = (1, 2, 5)
+print(tuple6 > tuple7)
+// true
+{% endhighlight %}
+Swift中的 **Array** 也是可以比较的。🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰
+{% highlight swift %}
+let result = [1, 2, 8] > [1, 2, 5]
+print(result)
+// true
+// 不同长度的一样可以比较 [1, 2, 8] > [1, 2, 5, 8, 100] 返回 true
+
+// 但是你不能这样比
+let test1 = [1, 2, 8]
+let test2 = [1, 2, 5]
+test1 > test2
+// Binary operator '>' cannot be applied to two '[Int]' operands
+
+{% endhighlight %}
+But Swift 提供了很强大的方法让你达到你的目的。
+{% highlight swift %}
+let isEqual = test1.elementsEqual(test2)
+print(isEqual)
+// false
+// elementsEqual 判断两个数组中的每一个元素是否都相等
+{% endhighlight %}
+还有更强大的🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰
+{% highlight swift %}
+let test3 = [10, 20, 30]
+let test4 = [1, 2, 3]
+let test3GreaterThanTest4 = test3.elementsEqual(test4, by: >)
+print(test3GreaterThanTest4)
+// true
+// test3 的每个元素都大于 test4 才会返回 true
+
+let test3GreaterThanTest4TenTimes = test3.elementsEqual(test4) { (a, b) -> Bool in
+    return a > b * 10
+}
+print(test3GreaterThanTest4TenTimes)
+// false
+{% endhighlight %}
+插播了一点 Swift 中 Array 的细节。我们这会儿在研究 Tuple 了，赶紧回来了。那么来看看 **Swift** 中有没有像 **zip** 这样的函数呢？**zip** 是啥？就是将两个 List 交叉配对行成 Tuple ，这些交叉配对好的 Tuple 组成一个新的 List 返回，这就是 zip 。忘了？？🤓🤓🤓🤓🤓🤓🤓没有😂😂😂🤣🤣🤣🤣🤣你看👆👆👆👆👆哪儿？🔭🔭🔭🔭🔭🔭就是那儿🖕🖕🖕🖕🖕🖕🖕还真有🙀🙀🙀🙀🙀🙀🙀🙀🙀🙀
+{% highlight swift %}
+let numbers = [1, 2, 3, 4, 5]
+let words = ["one", "two", "three", "four", "five"]
+let zipResult = zip(numbers, words)
+print(Array(zipResult))
+// [(1, "one"), (2, "two"), (3, "three"), (4, "four"), (5, "five")]
+
+let zip2 = zip(words, 100...Int.max)
+print(Array(zip2))
+// [("one", 100), ("two", 101), ("three", 102), ("four", 103), ("five", 104)]
+{% endhighlight %}
 
 
-[跟过关于Swift的细节以及code、playground](https://github.com/redtwowolf/redtwowolf.github.io/tree/master/_code/HaskellAndSwift/HaskellAndSwift.playground)
+
+
+
+
+[更多关于Swift的细节以及code、playground](https://github.com/redtwowolf/redtwowolf.github.io/tree/master/_code/HaskellAndSwift/HaskellAndSwift.playground)
 
 [test.hs](https://github.com/redtwowolf/redtwowolf.github.io/tree/master/_code/HaskellAndSwift/test.hs)
 
