@@ -36,7 +36,7 @@ theme_settings:
   str_rss_follow: "Follow RSS feed"
   str_email: "dongbinghouy@gmail.com"
   str_next: "Next"
-  str_prev: "Prev"
+  str_prev: "Previous"
   str_continue_reading: "Continue reading"
 
   # Colours, typography and padding
