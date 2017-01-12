@@ -106,4 +106,4 @@ ghci>circleArea 10
 ghci>:t head
 head :: [a] -> a
 {% endhighlight %}
-这里的 **a** 是什么？类型？不是，在 Haskell 中凡是类型的首字母必须大写，像 **Char, Float Bool** 等，这也是为什么不能声明一个以大写字母开始的变量的原因。在前一篇文章中我们有提到过 **head** 并分析了 **a** 发现它与泛型很像。在 Haskell 中被称为类型变量，使用到类型变量的函数称作 *多态函数* 。
+这里的 **a** 是什么？类型？不是，在 Haskell 中凡是类型的首字母必须大写，像 **Char, Float Bool** 等，所以不能声明首字母大写的变量或函数。在[前一篇](https://redtwowolf.github.io/2017/01/05/Haskell-And-Swift.html)文章中我们有提到过 **head** 并分析了 **a** 发现它与泛型很像，在 Haskell 中它被称为类型变量，使用到类型变量的函数称作 *多态函数* 。**head** 就是一个多态函数。

@@ -951,6 +951,14 @@ print(Array(zip2))
 <h2>七、结尾</h2>
 ---
 
+对 **Haskell** 与 **Swift** 的 **Tuple** 做个简单比较。
+
+| |Hskell | Swift
+|---|-------|------
+比较 | >, <, ==, /= | >, <, ==, !=
+获取元素 | fst, snd | xxx.0 或 xxx.name
+交叉元素 | zip | zip
+
 到这里总算对 **Haskell** 有了一个不错的认识，更是一个非常有趣的开始。勇往直前......✊✊🏻✊🏼✊🏽✊🏾✊🏿✊✊🏻✊🏼✊🏽✊🏾✊🏿
 
 [更多关于Swift的细节以及code、playground](https://github.com/redtwowolf/redtwowolf.github.io/tree/master/_code/HaskellAndSwift/HaskellAndSwift.playground)
