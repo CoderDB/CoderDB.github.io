@@ -8,7 +8,7 @@ theme_settings:
   title: redtwowolf
   avatar: avatar.jpg
   gravatar: # Email MD5 hash
-  description: "A website about to learn" # used by search engines
+  description: # used by search engines
 
   # Header and footer text
   header_text: >
@@ -18,7 +18,7 @@ theme_settings:
 
   # Icons
   rss: false
-  email_address: # Full email address, e.g. "sam@example.com"
+  email_address: dongbinghouy@gmail.com # Full email address, e.g. "sam@example.com"
   facebook:
   github: "redtwowolf"
   google_plus:
