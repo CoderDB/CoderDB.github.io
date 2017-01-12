@@ -18,7 +18,7 @@ theme_settings:
 
   # Icons
   rss: false
-  email_address: dongbinghouy@gmail.com # Full email address, e.g. "sam@example.com"
+  email_address: # Full email address, e.g. "sam@example.com"
   facebook:
   github: "redtwowolf"
   google_plus:
