@@ -239,7 +239,36 @@ ghci>maxBound :: Integer
 
 > <h3>Types and Typeclasses</h3>
 
-Types | Typeclasses|
-------|---------|
-------|--------|
-Char、Bool、Int、Integer、Double、Float、List、Tuple | Eq:   相等性比较<br> Ord:  比较大小 <br> Num:  数字性 <br> Show:  任意类型转为字符串 <br> Read:  与 Show 相反<br> Enum: 可枚举 <br>Bounded: 干啥都要有个度的 <br>... |
+<table>
+<tr>
+  <th >Types</th>
+  <th colspan="2">Typeclasses</th>
+</tr>
+<tr>
+  <th rowspan="7">Char、Bool、Int、Integer、Double、Float、List、Tuple</th>
+</tr>
+<tr>
+  <th>Eq</th>
+  <td>相等性比较</td>
+</tr>
+<tr>
+  <th>Ord</th>
+  <td>比较大小</td>
+</tr>
+<tr>
+  <th>Num</th>
+  <td>数字性</td>
+</tr>
+<tr>
+  <th>Show</th>
+  <td>任意类型转为字符串</td>
+</tr>
+<tr>
+  <th>Enum</th>
+  <td>可枚举</td>
+</tr>
+<tr>
+  <th>Bounded</th>
+  <td>干啥都要有个度的😁😁😁</td>
+</tr>
+</table>
