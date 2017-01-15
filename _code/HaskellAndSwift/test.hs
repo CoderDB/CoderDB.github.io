@@ -52,3 +52,13 @@ sum' (h:t) = h + sum' t
 product' :: (Num a) => [a] -> a
 product' [] = error "Can't call product' on empty list."
 product' (h:t) = h * product' t
+
+-- guard
+watchMovie :: (Integral a) => a -> String
+watchMovie age
+    | age <= 10 = "You should play niba with your friends."
+    | age <= 18 = "You should try to date girls."
+    | age <= 22 = "Watch Movie! Watch Movie! Watch Movie!"
+    | age <= 25 = "See Feng Insert Zhen."
+    | age <= 30 = "You should try to be a gay."
+    | otherwise = "You should try to be gandie."
