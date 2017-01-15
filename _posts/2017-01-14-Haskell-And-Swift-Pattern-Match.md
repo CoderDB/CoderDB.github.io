@@ -206,3 +206,5 @@ ghci>product []
 ghci>product [1, 2, 4]
 8
 {% endhighlight %}
+
+关于 Swift 中的模式匹配在之前的[一片文章](https://redtwowolf.github.io/2016/12/29/Optionals.html)中提到了很多，可以瞧一眼如果你想。

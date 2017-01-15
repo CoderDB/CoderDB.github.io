@@ -32,3 +32,23 @@ second (_, y, _) = y
 
 third :: (a, b, c) -> c
 third (_, _, z) = z
+
+-- head'
+head' :: [a] -> a
+head' [] = error "Can't call head' on empty list."
+head' (x:_) = x
+
+-- length'
+length' :: (Integral b) => [a] -> b
+length' [] = 0
+length' (_:t) = 1 + length' t
+
+-- sum'
+sum' :: (Num a) => [a] -> a
+sum' [] = 0
+sum' (h:t) = h + sum' t
+
+-- product'
+product' :: (Num a) => [a] -> a
+product' [] = error "Can't call product' on empty list."
+product' (h:t) = h * product' t
