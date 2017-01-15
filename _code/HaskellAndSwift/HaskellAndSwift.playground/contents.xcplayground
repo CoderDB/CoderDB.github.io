@@ -5,5 +5,6 @@
         <page name='List String'/>
         <page name='List Array'/>
         <page name='List Range'/>
+        <page name='List Comperhension'/>
     </pages>
 </playground>
