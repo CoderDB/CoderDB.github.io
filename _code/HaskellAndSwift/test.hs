@@ -22,3 +22,13 @@ notAtWork "Monday" = "Today is Monday, you ji ge mao a."
 notAtWork "Wednesday" = "You don't have to go to work after three days."
 notAtWork "Friday" = "You don't need to work tomorrow."
 notAtWork x = "You do have to work everyday, you konw, shabi!"
+
+--
+first :: (a, b, c) -> a
+first (x, _, _) = x
+
+second :: (a, b, c) -> b
+second (_, y, _) = y
+
+third :: (a, b, c) -> c
+third (_, _, z) = z
