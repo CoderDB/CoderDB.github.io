@@ -62,3 +62,18 @@ watchMovie age
     | age <= 25 = "See Feng Insert Zhen."
     | age <= 30 = "You should try to be a gay."
     | otherwise = "You should try to be gandie."
+
+
+-- max'
+max' :: (Ord a) => a -> a -> a
+max' x y
+    | x > y = x
+    | otherwise = y
+
+
+-- compare'
+compare' :: (Ord a) => a -> a -> Ordering
+compare' x y
+    | x > y     = GT
+    | x == y    = EQ
+    | otherwise = LT
