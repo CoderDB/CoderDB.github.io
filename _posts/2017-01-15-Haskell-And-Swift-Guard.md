@@ -105,3 +105,133 @@ EQ
 ghci>10 `compare` 8
 GT
 {% endhighlight %}
+
+Swift 中的 guard
+---
+
+Swift 中的 **guard** 必须和 **else** 一起出现，而且 **else** 语句必须以 **return, break, continue, throw** 四者之一结束。它的形式看起来是这样：
+{% highlight swift %}
+guard condition else {
+    statements
+}
+{% endhighlight %}
+Swift 中的 **guard** 不止可以判定一个 *Bool* 值语句，还可以与可选绑定一起使用。举几个例子看看：
+{% highlight swift %}
+func input(str: String?) {
+    guard str != nil else {
+        return
+    }
+    print("You just input " + "\"" + str! + "\"")
+}
+
+input(str: "hello")
+// You just input "hello"
+{% endhighlight %}
+
+**guard** 判定一个 *Bool* 值的情况大概就是这样，下面举一个 **guard** 与 *可选绑定* 一起使用的例子🌰🌰🌰🌰🌰🌰🌰
+
+{% highlight swift %}
+func getImage(urlString: String) {
+    guard let url = URL(string: urlString) else {
+        print("Get url failed")
+        return
+    }
+    guard let data = try? Data(contentsOf: url) else {
+        print("Get data failed")
+        return
+    }
+//    someImgView.image = UIImage(data: data)!
+    print("Get image data successed")
+}
+
+let source = "https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo/bd_logo1_31bdc765.png"
+getImage(urlString: source)
+// Get image data successed
+{% endhighlight %}
+
+这个例子讲述的是从远端获取一张图片填到某个 *view* 上。你还可以这样做：
+
+{% highlight swift %}
+func getImage(urlString: String) {
+    guard let url = URL(string: urlString), let data = try? Data(contentsOf: url) else {
+        return
+    }
+    let _ = UIImage(data: data)!
+    print("Get image data successed")
+}
+
+let source = "https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo/bd_logo1_31bdc765.png"
+getImage(urlString: source)
+// Get image data successed
+{% endhighlight %}
+
+前面说了与 **guard** 配合的 **else** 必须以 **return, break, continue, throw** 四者之一结束，那么这里再举一个 **throw** 的例子。
+
+{% highlight swift %}
+enum UserInfoError: Error {
+    case idInvalid, nameInvalid, phoneNumberInvalid
+}
+
+struct User {
+    var id:          String
+    var name:        String
+    var phoneNumber: String
+
+    init(id: String, name: String, phoneNumber: String) {
+        self.id = id
+        self.name = name
+        self.phoneNumber = phoneNumber
+    }
+}
+
+// 如果一个用户的 id 长为 5，name 在 3～15 之间，phoneNumber 长度为 11 那么这个用户的信息就是合法的
+func check(user: User) throws -> String {
+    guard user.id.characters.count == 5 else {
+        throw UserInfoError.idInvalid
+    }
+    guard user.name.characters.count > 3 && user.name.characters.count < 15 else {
+        throw UserInfoError.nameInvalid
+    }
+    guard user.phoneNumber.characters.count == 11 else {
+        throw UserInfoError.phoneNumberInvalid
+    }
+    return user.name + " | " + user.id + " | " + user.phoneNumber
+}
+{% endhighlight %}
+
+判断录入的用户信息是否合法，下面是它的调用。
+
+{% highlight swift %}
+// 1.
+let user = User(id: "00001", name: "Danny", phoneNumber: "12345678901")
+do {
+    let result = try check(user: user)
+    print(result)
+} catch UserInfoError.idInvalid {
+    print("id invalid")
+} catch UserInfoError.nameInvalid {
+    print("name invalid")
+} catch UserInfoError.phoneNumberInvalid {
+    print("phoneNumber invalid")
+}
+// Danny | 00001 | 12345678901
+
+// 2.
+let user2 = User(id: "00001", name: "Danny", phoneNumber: "")
+do {
+    let result = try check(user: user2)
+    print(result)
+} catch UserInfoError.idInvalid {
+    print("id invalid")
+} catch UserInfoError.nameInvalid {
+    print("name invalid")
+} catch UserInfoError.phoneNumberInvalid {
+    print("phoneNumber invalid")
+}
+// phoneNumber invalid
+{% endhighlight %}
+
+这些文章或许能帮到你
+---
+
+[Swift Guard](https://developer.apple.com/library/prerelease/content/documentation/Swift/Conceptual/Swift_Programming_Language/Statements.html)
