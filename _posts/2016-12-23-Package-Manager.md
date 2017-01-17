@@ -84,7 +84,7 @@ CMD+B看看是不是编译成功了！
 <h3>四、 原理</h3>
 ---
 
-*  Cocoapods 将第三方库以target的形式添加到Pods project，而Pods project在编译时生成libPods.a的静态库供母工程使用。
-*  Carthage 依靠xcodebuild 将第三方库build成.framework
+*  Cocoapods 将第三方库以target的形式添加到 *Pods project*，而 *Pods project* 在编译时生成 *libPods.a* 的静态库供母工程使用。
+*  Carthage 依靠 *xcodebuild* 将第三方库 build 成 *.framework*
 
 [更多Cocoapods原理](https://www.objccn.io/issue-6-4/)
