@@ -202,8 +202,39 @@ head' (h:_) = h
 
 {% highlight haskell %}
 head'' :: [a] -> a
-head'' xs = case xs of [] -> error "Can't call head' on empty list."
-                            (x:_) -> x
+head'' xs = case xs of
+                [] -> error "Can't call head' on empty list."
+                (x:_) -> x
 {% endhighlight %}
 
-上述两个函数是一样的，模式匹配本质上就是 **case** 的语法糖。
+上述两个函数是一样的，模式匹配本质上就是 **case** 的语法糖。测试看看是否可以工作。
+
+{% highlight haskell %}
+ghci>head
+head    head'   head''
+ghci>head'' "haskell"
+'h'
+{% endhighlight %}
+
+举一个简单的例子🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰
+
+{% highlight haskell %}
+listDescription :: [a] -> String
+listDescription xs = case xs of
+                        [] -> "empty list"
+                        [x] -> "singleton list"
+                        xs -> "longer list"
+{% endhighlight %}
+
+测试一下👨🏻‍💻👨🏻‍💻👨🏻‍💻👨🏻‍💻👨🏻‍💻👨🏻‍💻👨🏻‍💻👨🏻‍💻
+
+{% highlight haskell %}
+ghci>listDescription []
+"empty list"
+
+ghci>listDescription [a]
+"singleton list"
+
+ghci>listDescription "haskell"
+"longer list"
+{% endhighlight %}
