@@ -115,12 +115,68 @@ for case let i in 1..<10 where i % 2 == 0{
 
 总之一句话，**where** 就是添加一个条件。
 
-
-
-
-
 let
 ---
+
+这里要说的 **let** 不是 *let a = 10* 这样的 **let** ，而是具有一定结构和作用域的 **let-in** 。它的结构像这样：
+
+{% highlight haskell %}
+let [bindings] in [expressions]
+{% endhighlight %}
+
+比如：
+
+{% highlight haskell %}
+ghci>let a = 10; b = 20 in a + b
+30
+
+ghci>let a = 10; b = 20; c= 30 in a * b * c
+6000
+{% endhighlight %}
+
+在 **let in** 中声明的局部变量（a, b, c）只对 **in** 部分可见。这很像 Swift 中的 *可选绑定* 。**let-in** 还可以绑定一个局部函数，像这样：
+
+{% highlight haskell %}
+ghci>let sum a b = a + b in sum 1 2
+3
+
+ghci>let test = let sum a b = a + b in sum 1 2
+ghci>test
+3
+-- 将一个 let-in 返回的值绑到 test 变量上
+-- 相当于 let test = 3
+
+ghci>let testSum a b = let sum x y = x + y in sum a b
+ghci>testSum 1 2
+3
+-- 将一个 (sum x y) 这样的函数绑定到 (testSum a b) 上
+-- 相当于 testSum a b = a + b
+{% endhighlight %}
+
+> **Swift** 中的 **可选绑定**
+
+为什么不是 Swift 中的 **let** ？因为在这里我关注的并不是 **let** ，而是和 Haskell 中 **let-in** 较相像的 **可选绑定** 。
+
+{% highlight swift %}
+var op: String? = "Hello"
+if let opt = op {
+  print(opt)
+}
+{% endhighlight %}
+
+这里 *opt* 存储 *op* 解包后的值，*opt* 的作用域仅仅是 **if** 的函数体，也就是 *{}* 内。如果这里的 *op* 是一个函数的话，就更像了！
+
+{% highlight swift %}
+func optionalStr() -> String? {
+    return "haskell"
+}
+
+if let opt = optionalStr() {
+    print(opt)
+}
+// haskell
+{% endhighlight %}
+
 
 case
 ---
