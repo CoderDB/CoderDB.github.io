@@ -77,3 +77,41 @@ compare' x y
     | x > y     = GT
     | x == y    = EQ
     | otherwise = LT
+
+-- where
+
+--bmi
+bmi :: (RealFloat a) => a -> a -> String
+bmi weight height
+    | weight / height ^ 2 <= 18.4 = "偏瘦"
+    | weight / height ^ 2 <= 23.9 = "正常"
+    | weight / height ^ 2 <= 27.9 = "过重"
+    | otherwise = "肥胖"
+
+-- bmi'
+bmi' :: (RealFloat a) => a -> a -> String
+bmi' weight height
+    | bmi <= 18.4 = "偏瘦"
+    | bmi <= 23.9 = "正常"
+    | bmi <= 27.9 = "过重"
+    | otherwise = "肥胖"
+    where bmi = weight / height ^ 2
+
+-- bmis
+bmis :: (RealFloat a) => [(a, a)] -> [a]
+bmis s = [bmi | (w, h) <- s, let bmi = w / h ^ 2]
+
+-- case
+
+-- head''
+head'' :: [a] -> a
+head'' xs = case xs of
+                [] -> error "Can't call head' on empty list."
+                (x:_) -> x
+
+-- listDescription
+listDescription :: [a] -> String
+listDescription xs = case xs of
+                        [] -> "empty list"
+                        [x] -> "singleton list"
+                        xs -> "longer list"
