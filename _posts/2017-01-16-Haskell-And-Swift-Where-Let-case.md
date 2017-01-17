@@ -177,6 +177,33 @@ if let opt = optionalStr() {
 // haskell
 {% endhighlight %}
 
-
 case
 ---
+
+**case** 就是匹配一个表达式（规则），执行对应的代码块。是不是有点耳熟？？？🙃🙃🙃🙃🙃🙃🙃🙃🙃 它的语法是这样的：
+
+{% highlight haskell %}
+case expression of pattern -> result  
+                   pattern -> result  
+                   pattern -> result  
+                   ...
+{% endhighlight %}
+
+和 Swift 中的 **case** 长的不大一样，但实际差不多。之前有实现一个 *head'* 函数，它和 *head* 做一样的事情。
+
+{% highlight haskell %}
+-- head'
+head' :: [a] -> a
+head' [] = error "Can't call head' on empty list."
+head' (h:_) = h
+{% endhighlight %}
+
+现在用 **case** 来实现它。
+
+{% highlight haskell %}
+head'' :: [a] -> a
+head'' xs = case xs of [] -> error "Can't call head' on empty list."
+                            (x:_) -> x
+{% endhighlight %}
+
+上述两个函数是一样的，模式匹配本质上就是 **case** 的语法糖。
