@@ -238,3 +238,50 @@ ghci>listDescription [a]
 ghci>listDescription "haskell"
 "longer list"
 {% endhighlight %}
+
+
+> **Swift** 中的 **case**
+
+**case** 在 Swift 中可以和很多其他语句一起组和使用，比如与 **if, guard, for** 等语句组合使用，之前举过这样的例子，所以这里不在举例说明了！这里举一个不太使用的例子，仍然是18岁看电影的例子，只不过把 *return* 换成 *print* 了！看一看：
+
+{% highlight swift %}
+func watchMovieWithFallthrough(age: Int) {
+
+    switch age {
+    case 1...10 where age >= 5:
+        print("You should play niba with your friends.")
+        fallthrough
+    case 11...18:
+        print("You should try to date girls.")
+    case 19...22:
+        print("Watch Movie! Watch Movie! Watch Movie!")
+    case 23...25:
+        print("See Feng Insert Zhen.")
+    case 26...30:
+        print("You should try to be a gay.")
+    case _ where age >= 31:
+        print("You should try to be a gay.")
+        fallthrough
+    default:
+        print("please re-enter.")
+    }
+}
+{% endhighlight %}
+
+在第一个 **case** 和最后一个 **case** 后面加了一个关键字 **fallthrough** 。**fallthrough** 的意思是不管它后面的 **case** 能否匹配都会执行该 **case** 对应的代码块。看一眼就明白了！
+
+{% highlight swift %}
+watchMovieWithFallthrough(age: 8)
+// You should play niba with your friends.
+// You should try to date girls.
+8 不在 11...18 之间，但是 "You should try to date girls." 依然会输出
+
+watchMovieWithFallthrough(age: 40)
+// You should try to be a gay.
+// please re-enter.
+{% endhighlight %}
+
+最后
+---
+* [可以在这里下载 **test.hs**](https://github.com/redtwowolf/redtwowolf.github.io/blob/master/_code/HaskellAndSwift/test.hs)
+* [下载 **playground**](https://github.com/redtwowolf/redtwowolf.github.io/tree/master/_code/HaskellAndSwift/WhereLetCase.playground)
