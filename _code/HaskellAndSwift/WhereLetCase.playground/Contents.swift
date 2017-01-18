@@ -76,4 +76,31 @@ if let opt = optionalStr() {
     print(opt)
 }
 
+// fallthrough
+func watchMovieWithFallthrough(age: Int) {
+    
+    switch age {
+    case 1...10 where age >= 5:
+        print("You should play niba with your friends.")
+        fallthrough
+    case 11...18:
+        print("You should try to date girls.")
+    case 19...22:
+        print("Watch Movie! Watch Movie! Watch Movie!")
+    case 23...25:
+        print("See Feng Insert Zhen.")
+    case 26...30:
+        print("You should try to be a gay.")
+    case _ where age >= 31:
+        print("You should try to be a gay.")
+        fallthrough
+    default:
+        print("please re-enter.")
+    }
+}
+
+watchMovieWithFallthrough(age: 8)
+
+watchMovieWithFallthrough(age: 40)
+
 
