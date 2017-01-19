@@ -49,3 +49,59 @@ length' (_:t) = 1 + length' t
 又称做黄金分割数列，因为它的通项公式是这样的：
 
 $$ a_n = 1 / \sqrt 5 \left[\left(\frac{1 + \sqrt 5 } 2\right)^n - \left(\frac{1 - \sqrt 5} 2\right)^n \right] a_1 = 1, a_2 = 1, a_n = a_{n-1} + a_{n-2} \ (n \geq 3, n \in N^*) $$
+
+很明显了！除了第一、二项，斐波拉契数列后项就是前两项之和。那么怎么用 *Haskell* 实现它呢？
+
+{% highlight haskell %}
+fibonacci :: (Integral a) => a -> a
+fibonacci 0 = error "0 is not a positive integer."
+fibonacci 1 = 1
+fibonacci 2 = 1
+fibonacci n = fibonacci (n-1) + fibonacci (n-2)
+{% endhighlight %}
+
+在 **test.hs** 中定义了一个名为 *fibonacci* 的函数，这个函数用来计算第 n 个斐波拉契数，它的参数和返回值都是整型的。*fibonacci* 做了四个模式匹配规则，当输入 0 时程序 crash 并给出错误信息，因为斐波拉契数列取得是正整数。测试一下🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰
+
+{% highlight haskell %}
+ghci>fibonacci 1
+1
+ghci>fibonacci 2
+1
+ghci>fibonacci 3
+2
+ghci>fibonacci 4
+3
+ghci>fibonacci 5
+5
+ghci>fibonacci 10
+55
+ghci>fibonacci 20
+6765
+ghci>fibonacci 50
+^CInterrupted.
+-- 这个时候计算已经很慢了！所以我打断了它。该性能问题留待以后解决。
+
+ghci>fibonacci 0
+*** Exception: 0 is not a positive integer.
+{% endhighlight %}
+
+当 n = 5 时，*fibonacci* 它是怎么工作的呢？
+
+{% highlight haskell %}
+-- 将 fibonacci 简写为 f
+fibonacci 5 = f(4) + f(3)
+            = (f(3) + f(2)) + (f(2) + f(1))
+            = ((f(2) + f(1)) + 1) + (1 + 1)
+            = ((1 + 1) + 1) + (1 + 1)
+            = 5
+{% endhighlight %}
+
+🙅‍♂️🙅🙅‍♂️🙅🙅‍♂️🙅🙅‍♂️ 不是这意思，我们需要的是斐非波拉契数列，是 “列” 不是数，“列” you know！📣📣📣📣📣📣📣📣📣 👌👌🏿👌🏿👌🏿👌🏿👌🏿👌🏿👌🏿👨🏻‍💻👨🏿‍💻👨🏿‍💻👨🏿‍💻👨🏿‍💻👨🏿‍💻👨🏿‍💻
+
+{% highlight haskell %}
+fibonacci' :: (Integral a) => a -> [a]
+fibonacci' 0 = error "0 is not a positive integer."
+fibonacci' 1 = [1]
+fibonacci' 2 = [1, 1]
+fibonacci' n = fibonacci' 2 ++ (zipWith (+) (tail (fibonacci' (n-1))) (fibonacci' (n-2)))
+{% endhighlight %}
