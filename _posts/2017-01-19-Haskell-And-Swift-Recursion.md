@@ -1,7 +1,7 @@
 ---
 layout: post
 date: 2017-01-16
-title: Haskell And Swift （递归）
+title: Haskell And Swift （递归一）
 feature-img: "img/darkgray.jpg"
 ---
 
@@ -231,3 +231,40 @@ fibonacci' 5 = f(2) ++ (zipWith (+) (tail f(4)) f(3))
 {% endhighlight %}
 
 就是这样来的。
+
+<h2>Swift 实现 Fibonacci</h2>
+---
+
+{% highlight swift %}
+func fibonacci(n: Int) -> Int {
+    if n == 0 {
+        fatalError("0 is not a positive integer")
+    } else if n == 1 || n == 2 {
+        return 1
+    } else {
+        return fibonacci(n: n - 1) + fibonacci(n: n - 2)
+    }
+}
+{% endhighlight %}
+
+{% highlight swift %}
+fibonacci(n: 1)
+// 1
+fibonacci(n: 2)
+// 1
+fibonacci(n: 3)
+// 2
+fibonacci(n: 4)
+// 3
+fibonacci(n: 5)
+// 5
+fibonacci(n: 10)
+// 55
+fibonacci(n: 20)
+// 6765
+fibonacci(n: 50)
+// CPU 都要满了！执行几十万次了都
+
+fibonacci(n: 0)
+// fatal error: 0 is not a positive integer
+{% endhighlight %}
