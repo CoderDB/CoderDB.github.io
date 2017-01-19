@@ -105,3 +105,129 @@ fibonacci' 1 = [1]
 fibonacci' 2 = [1, 1]
 fibonacci' n = fibonacci' 2 ++ (zipWith (+) (tail (fibonacci' (n-1))) (fibonacci' (n-2)))
 {% endhighlight %}
+
+在 **test.hs** 中声明一个名为 *fibonacci'* 的函数，接受一个整型的参数，返回一个整型的 List 。有必要说明一下 **zipWith** 函数，还记得之前[文章](https://redtwowolf.github.io/2017/01/05/Haskell-And-Swift.html)中的 **zip** 函数吗？**zipWith** 和 **zip** 差不多，也是将两个 List 按短的那个合成一个 List ，不过 **zipWith** 还接受一个 *(a -> b -> c)* 这样的参数。
+
+{% highlight haskell %}
+ghci>:t zipWith
+zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
+{% endhighlight %}
+
+**zipWith** 接受一个函数来作为第一个参数，后面还接收两个 List 参数，返回一个 List 值。测试一下：
+
+{% highlight haskell %}
+ghci>zipWith (+) [1, 2] [3, 4]
+[4,6]
+
+ghci>zipWith (+) [1, 2] [3]
+[4]
+
+ghci>zipWith (+) [1, 2] [1..]
+[2,4]
+
+ghci>zipWith (-) [1, 2] [3, 4]
+[-2,-2]
+
+ghci>zipWith (-) [1, 2] [3]
+[-2]
+
+ghci>zipWith (**) [1, 2] [100, 3]
+[1.0,8.0]
+-- "**" 表示次方， 比如 2 ** 3 就是 2 的 3 次方，结果是 8.0
+
+ghci>zipWith (**) [3, 2] [3, 4]
+[27.0,16.0]
+{% endhighlight %}
+
+**zipWith** 接受一个函数作为参数，所以我们定义一个函数给它玩玩。
+{% highlight haskell %}
+-- 定义一个 add 函数，很简单就是把两个数加起来。
+ghci>add a b = a + b
+
+ghci>:t add
+add :: Num a => a -> a -> a
+
+ghci>add 1 2
+3
+
+ghci>zipWith (add) [1, 2] [3, 4]
+[4,6]
+
+ghci>zipWith (add) [1, 2] [3]
+[4]
+
+ghci>zipWith (add) [1, 2] [3..]
+[4,6]
+
+ghci>zipWith (add) [1, 2] []
+[]
+{% endhighlight %}
+
+回到斐波拉契数列上来，让我们测试一下 *fibonacci'* 。
+
+{% highlight haskell %}
+ghci>fibonacci
+fibonacci   fibonacci'
+
+ghci>fibonacci' 1
+[1]
+
+ghci>fibonacci' 2
+[1,1]
+
+ghci>fibonacci' 3
+[1,1,2]
+
+ghci>fibonacci' 4
+[1,1,2,3]
+
+ghci>fibonacci' 4
+[1,1,2,3]
+
+ghci>fibonacci' 5
+[1,1,2,3,5]
+
+ghci>fibonacci' 10
+[1,1,2,3,5,8,13,21,34,55]
+
+ghci>fibonacci' 20
+[1,1,2,3,5,8,13,21,34,55,89,144,233,377,610,987,1597,2584,4181,6765]
+
+ghci>fibonacci' 50
+[1,1,2,3,5,8,13,21,34,55,89,144,233,377,610,987,1597,2584,4181,6765,10946,17711,28657,46368,75025,121393,196418,317811,514229,832040,1346269^CInterrupted.
+-- 太慢，所以打断
+
+ghci>fibonacci' 0
+*** Exception: 0 is not a positive integer.
+{% endhighlight %}
+
+再说明一下这句为啥这样写？
+{% highlight haskell %}
+fibonacci' n = fibonacci' 2 ++ (zipWith (+) (tail (fibonacci' (n-1))) (fibonacci' (n-2)))
+{% endhighlight %}
+
+比如 n = 5 时，取前 5 个斐波拉契数列
+
+{% highlight haskell %}
+fibonacci' 1 = [1]
+fibonacci' 2 = [1, 1]
+fibonacci' 3 = f(2) ++ (zipWith (+) (tail (f2)) f(1))
+             = [1, 1] ++ (zipWith (+) (tail ([1, 1]) [1])
+             = [1, 1] ++ (zipWith (+) ([1] [1]))
+             = [1, 1] ++ [2]
+             = [1, 1, 2]
+
+fibonacci' 4 = f(2) ++ (zipWith (+) (tail (f(3)) f(2)))
+             = [1, 1] ++ (zipWith (+) (tail [1, 1, 2]) [1, 1])
+             = [1, 1] ++ (zipWith (+) ([1, 2]) [1, 1])
+             = [1, 1] ++ [2, 3]
+             = [1, 1, 2, 3]
+
+fibonacci' 5 = f(2) ++ (zipWith (+) (tail f(4)) f(3))
+             = [1, 1] ++ (zipWith (+) (tail [1, 1, 2, 3]) [1, 1, 2])
+             = [1, 1] ++ (zipWith (+) ([1, 2, 3] [1, 1, 2]))
+             = [1, 1] ++ [2, 3, 5]
+             = [1, 1, 2, 3, 5]
+{% endhighlight %}
+
+就是这样来的。
