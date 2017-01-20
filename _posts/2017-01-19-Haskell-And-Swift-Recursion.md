@@ -316,3 +316,26 @@ zipWith(fst: [1, 2, 3], snd: [5, 6, 7])
 zipWith(fst: [1, 2], snd: [6])
 // [7]
 {% endhighlight %}
+
+好了！看起来 **zipWith** 还不错，那么就来测试一下 *fibonacci'* 。
+
+{% highlight swift %}
+fibonaccis(n: 3)
+// [1, 1, 2]
+// 1, 2就不测了！
+
+fibonaccis(n: 4)
+// [1, 1, 2, 3]
+
+fibonaccis(n: 5)
+// [1, 1, 2, 3, 5]
+
+fibonaccis(n: 10)
+// [1, 1, 2, 3, 5, 8, 13, 21, 34, 55]
+
+fibonaccis(n: 20)
+// [1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987, 1597, 2584, 4181, 6765]
+
+fibonaccis(n: 0)
+// you should input a positive integer.
+{% endhighlight %}
