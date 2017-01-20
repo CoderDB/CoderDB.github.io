@@ -339,3 +339,9 @@ fibonaccis(n: 20)
 fibonaccis(n: 0)
 // you should input a positive integer.
 {% endhighlight %}
+
+最后
+---
+
+* [可以在这里下载到相关的 Playground](https://github.com/redtwowolf/redtwowolf.github.io/tree/master/_code/HaskellAndSwift/Recursion.playground)
+* [test.hs](https://github.com/redtwowolf/redtwowolf.github.io/blob/master/_code/HaskellAndSwift/test.hs) 

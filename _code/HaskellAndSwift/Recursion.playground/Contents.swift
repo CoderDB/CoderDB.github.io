@@ -6,13 +6,11 @@ var str = "Hello, playground"
 
 // fibonacci
 func fibonacci(n: Int) -> Int {
-    if n == 0 {
-        fatalError("0 is not a positive integer")
-    } else if n == 1 || n == 2 {
-        return 1
-    } else {
-        return fibonacci(n: n - 1) + fibonacci(n: n - 2)
+    guard n > 0 else {
+        fatalError("you should input a positive integer.")
     }
+    return n < 3 ? 1 : fibonacci(n: n - 1) + fibonacci(n: n - 2)
+  
 }
 //fibonacci(n: 1)
 //fibonacci(n: 2)
@@ -24,30 +22,51 @@ func fibonacci(n: Int) -> Int {
 //fibonacci(n: 50)
 //fibonacci(n: 0)
 
-// fibonacci'
 
-//func fibonacciArray(n: Int) -> [Int] {
-//    let pattern1 = [1]
-//    let pattern2 = [1, 1]
-//    
-//    switch n {
-//    case 0:
-//        fatalError("0 is not a positive integer")
-//    case 1:
-//        return pattern1
-//    case 2:
-//        return pattern2
-//    default:
-//        var fib1 = fibonacciArray(n: n - 1)
-//        fib1.remove(at: 0)
-//        
-//        var fib2 = fibonacciArray(n: n - 2)
-//        fib2.remove(at: 0)
-//        let fib = zip(fib1, fib2)
-//        let result = Array(fib)
-//        
-//        
-//        return
+
+
+// zipWith: [1, 2] [3, 4] = [4, 6]
+func zipWith(fst: [Int], snd: [Int]) -> [Int] {
+    if fst.isEmpty || snd.isEmpty {
+        return []
+    }
+    return zip(fst, snd).reduce([]) { (res, tup) in
+        return res + [tup.0 + tup.1]
+    }
+}
+//zipWith(fst: [1, 2, 3], snd: [5, 6, 7])
+//zipWith(fst: [1, 2], snd: [6])
+
+// fibonacci'
+func fibonaccis(n: Int) -> [Int] {
+    switch n {
+    case _ where n <= 0:
+        fatalError("you should input a positive integer.")
+    case 1:
+        return [1]
+    case 2:
+        return [1, 1]
+    default:
+        let tail = fibonaccis(n: n - 1).dropFirst()
+        return [1, 1] + zipWith(fst: Array(tail), snd: fibonaccis(n: n - 2))
+    }
+}
+//print(fibonaccis(n: 10))
+
+
+
+// Tail Recursion
+
+//func fib(n: Int, accrlerator: Int = 0) -> Int {
+//    if n < 3 {
+//        return 1
 //    }
+//    return fib(n: n - 1, accrlerator: accrlerator + n) + fib(n: n - 2)
 //}
+//
+//fib(n: 5)
+//fib(n: 10)
+//fib(n: 20)
+
+
 

@@ -115,3 +115,20 @@ listDescription xs = case xs of
                         [] -> "empty list"
                         [x] -> "singleton list"
                         xs -> "longer list"
+
+
+-- recursion
+
+fibonacci :: (Integral a) => a -> a
+fibonacci 0 = error "0 is not a positive integer."
+fibonacci 1 = 1
+fibonacci 2 = 1
+fibonacci n = fibonacci (n-1) + fibonacci (n-2)
+
+
+-- fibonacci'
+fibonacci' :: (Integral a) => a -> [a]
+fibonacci' 0 = error "0 is not a positive integer."
+fibonacci' 1 = [1]
+fibonacci' 2 = [1, 1]
+fibonacci' n = fibonacci' 2 ++ (zipWith (+) (tail (fibonacci' (n-1))) (fibonacci' (n-2)))
