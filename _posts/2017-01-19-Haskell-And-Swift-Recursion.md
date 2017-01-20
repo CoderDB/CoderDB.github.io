@@ -39,7 +39,9 @@ length' (_:t) = 1 + length' t
 之前为此专门画了一张图，这张图能帮助更清楚的认识 **递归** 。
 ![length'](http://ogkg37m8j.bkt.clouddn.com/image/haskell-and-swift/pattern-match/haskell_and_swift_pattern_match_length.jpg)
 
-> Fibonacci
+
+<h2>Fibonacci</h2>
+---
 
 斐波那契数列就是这样的一列数：
 {% highlight haskell %}
@@ -96,8 +98,12 @@ fibonacci 5 = f(4) + f(3)
             = 5
 {% endhighlight %}
 
-🙅‍♂️🙅🙅‍♂️🙅🙅‍♂️🙅🙅‍♂️ 不是这意思，我们需要的是斐非波拉契数列，是 “列” 不是数，“列” you know！📣📣📣📣📣📣📣📣📣 👌👌🏿👌🏿👌🏿👌🏿👌🏿👌🏿👌🏿👨🏻‍💻👨🏿‍💻👨🏿‍💻👨🏿‍💻👨🏿‍💻👨🏿‍💻👨🏿‍💻
+🙅‍♂️🙅🙅‍♂️🙅🙅‍♂️🙅🙅‍♂️ 不是这意思，我们需要的是斐非波拉契数列，是 “列” 不是数，“列” you know！📣📣📣📣📣📣📣📣📣
 
+<h2>Fibonacci'</h2>
+---
+
+👌👌🏿👌🏿👌🏿👌🏿👌🏿👌🏿👌🏿 I know, I'm on it. 👨🏻‍💻👨🏿‍💻👨🏿‍💻👨🏿‍💻👨🏿‍💻👨🏿‍💻👨🏿‍💻
 {% highlight haskell %}
 fibonacci' :: (Integral a) => a -> [a]
 fibonacci' 0 = error "0 is not a positive integer."
@@ -237,15 +243,14 @@ fibonacci' 5 = f(2) ++ (zipWith (+) (tail f(4)) f(3))
 
 {% highlight swift %}
 func fibonacci(n: Int) -> Int {
-    if n == 0 {
-        fatalError("0 is not a positive integer")
-    } else if n == 1 || n == 2 {
-        return 1
-    } else {
-        return fibonacci(n: n - 1) + fibonacci(n: n - 2)
+    guard n > 0 else {
+        fatalError("you should input a positive integer.")
     }
+    return n < 3 ? 1 : fibonacci(n: n - 1) + fibonacci(n: n - 2)
 }
 {% endhighlight %}
+
+测试一下吧！！！🤓🤓🤓🤓🤓🤓🤓🤓🤓🤓🤓🤓
 
 {% highlight swift %}
 fibonacci(n: 1)
@@ -263,8 +268,8 @@ fibonacci(n: 10)
 fibonacci(n: 20)
 // 6765
 fibonacci(n: 50)
-// CPU 都要满了！执行几十万次了都
+// 性能存在问题。CPU 都要满了！执行几十万次了都
 
 fibonacci(n: 0)
-// fatal error: 0 is not a positive integer
+// fatal error: you should input a positive integer.
 {% endhighlight %}
