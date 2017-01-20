@@ -29,7 +29,7 @@ length' (_:t) = 1 + length' t
 
 3. "bc" 依旧匹配第二个模式，即(_:"c")，此时长度可表示为 1 + (1 + length' "c")，以 "c" 调用 length' 本身
 
-4. "c" 仍然匹配第二个模式，即(_:[])，此时长度可表示为 1 + (1 + (1 + length ""))，以 "" 调用 length' 本身_
+4. "c" 仍然匹配第二个模式，即(_:[])，此时长度可表示为 1 + (1 + (1 + length ""))，以 "" 调用 length' 本身
 
 5. "" 匹配了第一个模式 []，length' 函数定义了空 "List" 的长度为 0，此时长度可表示为 1 + (1 + (1 + 0))
 
@@ -294,7 +294,7 @@ func fibonaccis(n: Int) -> [Int] {
 }
 {% endhighlight %}
 
-这里为了学的更像一点，在 *Swift* 中实现了一个跟 *Haskell* 一样功能的 **zipWith** 函数。它是这样实现的：
+这里为了学的更像一点，在 *Swift* 中实现了一个跟 *Haskell* 中 **zipWith** 主要功能差不多的函数。它是这样实现的：
 
 {% highlight swift %}
 func zipWith(fst: [Int], snd: [Int]) -> [Int] {
@@ -343,5 +343,7 @@ fibonaccis(n: 0)
 最后
 ---
 
+看起来也都还不错，不过有些问题（比如递归的性能问题，**zipWith** 函数能否再像一点......）就留到下一篇文章中吧！总之，**递归** 就是调用自身。
+
 * [可以在这里下载到相关的 Playground](https://github.com/redtwowolf/redtwowolf.github.io/tree/master/_code/HaskellAndSwift/Recursion.playground)
-* [test.hs](https://github.com/redtwowolf/redtwowolf.github.io/blob/master/_code/HaskellAndSwift/test.hs) 
+* [test.hs](https://github.com/redtwowolf/redtwowolf.github.io/blob/master/_code/HaskellAndSwift/test.hs)
