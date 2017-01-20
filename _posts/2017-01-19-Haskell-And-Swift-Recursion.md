@@ -273,3 +273,46 @@ fibonacci(n: 50)
 fibonacci(n: 0)
 // fatal error: you should input a positive integer.
 {% endhighlight %}
+
+<h2>Swift 实现 Fibonacci'</h2>
+---
+
+和 *Haskell* 一样的思路。在 *Swift* 中声明一个方法取名为 *fibonaccis* ，它返回前 n 个斐波拉契数组成的 "列" 。
+{% highlight swift %}
+func fibonaccis(n: Int) -> [Int] {
+    switch n {
+    case _ where n <= 0:
+        fatalError("you should input a positive integer.")
+    case 1:
+        return [1]
+    case 2:
+        return [1, 1]
+    default:
+        let tail = fibonaccis(n: n - 1).dropFirst()
+        return [1, 1] + zipWith(fst: Array(tail), snd: fibonaccis(n: n - 2))
+    }
+}
+{% endhighlight %}
+
+这里为了学的更像一点，在 *Swift* 中实现了一个跟 *Haskell* 一样功能的 **zipWith** 函数。它是这样实现的：
+
+{% highlight swift %}
+func zipWith(fst: [Int], snd: [Int]) -> [Int] {
+    if fst.isEmpty || snd.isEmpty {
+        return []
+    }
+    return zip(fst, snd).reduce([]) { (res, tup) in
+        return res + [tup.0 + tup.1]
+    }
+}
+{% endhighlight %}
+
+**zipWith** 函数中借助了系统实现好的 **zip** 函数，目的是免得自己去比较两个数组的长度并将它们合并的操作。稍微测试一下 **zipWith** 函数，看它是否正常工作。
+
+{% highlight swift %}
+zipWith(fst: [1, 2, 3], snd: [5, 6, 7])
+// [6, 8, 10]
+
+zipWith(fst: [1, 2], snd: [6])
+// [7]
+{% endhighlight %}
