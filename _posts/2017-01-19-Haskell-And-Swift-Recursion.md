@@ -317,6 +317,19 @@ zipWith(fst: [1, 2], snd: [6])
 // [7]
 {% endhighlight %}
 
+那 **zipWith** 内部怎么运转的了？它看起来像这样：
+
+{% highlight swift %}
+1. zipWith(fst: [1, 2, 3], snd: [5, 6, 7])
+2. zip(fst, snd)
+// [(1, 5), (2, 6), (3, 7)]
+3. 通过 reduce 函数将每个 tuple 的元素相加并装到一个数组里。
+// [] + [6] + [8] + (10)
+4. 输出结果
+// [6, 8, 10]
+{% endhighlight %}
+
+
 好了！看起来 **zipWith** 还不错，那么就来测试一下 *fibonacci'* 。
 
 {% highlight swift %}
