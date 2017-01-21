@@ -1,6 +1,6 @@
 ---
 layout: post
-date: 2017-01-16
+date: 2017-01-19
 title: Haskell And Swift （递归一）
 feature-img: "img/darkgray.jpg"
 ---
@@ -354,6 +354,7 @@ fibonaccis(n: 0)
 {% endhighlight %}
 
 最后
+---
 ---
 
 看起来也都还不错，不过有些问题（比如递归的性能问题，**zipWith** 函数能否再像一点......）就留到下一篇文章中吧！总之，**递归** 就是调用自身。
