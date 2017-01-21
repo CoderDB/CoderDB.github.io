@@ -132,3 +132,12 @@ fibonacci' 0 = error "0 is not a positive integer."
 fibonacci' 1 = [1]
 fibonacci' 2 = [1, 1]
 fibonacci' n = fibonacci' 2 ++ (zipWith (+) (tail (fibonacci' (n-1))) (fibonacci' (n-2)))
+
+
+-- Recursion Two
+
+-- zip'
+zip' :: [a] -> [b] -> [(a, b)]
+zip' [] _ = []
+zip' _ [] = []
+zip' (x:xs) (y:ys) = (x, y):zip' xs ys
