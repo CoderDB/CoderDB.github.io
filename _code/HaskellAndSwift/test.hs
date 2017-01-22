@@ -141,3 +141,31 @@ zip' :: [a] -> [b] -> [(a, b)]
 zip' [] _ = []
 zip' _ [] = []
 zip' (x:xs) (y:ys) = (x, y):zip' xs ys
+
+-- maximum'
+maximum' :: (Ord a) => [a] -> a
+maximum' [] = error "What's maximum of empty list? you tell me."
+maximum' [x] = x
+maximum' (x:xs) = max x (maximum' xs)
+
+-- repeat'
+repeat' :: a -> [a]
+repeat' x = x:repeat' x
+
+-- take'
+take' :: (Integral n) => n -> [a] -> [a]
+take' n _
+    | n <= 0   = []
+take' _ []     = []
+take' n (x:xs) = x:take' (n-1) xs
+
+-- replicate'
+replicate' :: (Integral n) => n -> a -> [a]
+replicate' n x
+    | n <= 0 = []
+    | otherwise = x:replicate' (n-1) x
+
+-- reverse'
+reverse' :: [a] -> [a]
+reverse' [] = []
+reverse' (x:xs) = reverse' xs ++ [x]

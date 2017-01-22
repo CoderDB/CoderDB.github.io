@@ -233,3 +233,39 @@ ghci>zip' [1, 2] ['a', 'b']
 5. 得到结果
 -- [(1,'a'),(2,'b')]
 {% endhighlight %}
+
+> **reverse**
+
+**reverse** 函数将一个 List 首尾颠倒并返回。
+
+{% highlight haskell %}
+ghci>reverse [1, 2, 3]
+[3,2,1]
+
+ghci>reverse "Haskell"
+"lleksaH"
+{% endhighlight %}
+
+在 *Haskell* 中将一个 List 分为头部和尾部是非常有用有效又清晰的的方法。用递归实现 **reverse** 还是这个思路，把头和尾颠倒一下就👌了！😄😄😄😄😄
+
+{% highlight haskell %}
+reverse' :: [a] -> [a]
+reverse' [] = []
+reverse' (x:xs) = reverse' xs ++ [x]
+{% endhighlight %}
+
+测试一下 *reverse'* 看它是否如你所想。
+
+{% highlight haskell %}
+ghci>reverse
+reverse   reverse'
+
+ghci>reverse' "Haskell"
+"lleksaH"
+
+ghci>reverse' [1, 2, 3]
+[3,2,1]
+
+ghci>reverse' ""
+""
+{% endhighlight %}
