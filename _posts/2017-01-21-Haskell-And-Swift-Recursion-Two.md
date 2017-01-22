@@ -98,5 +98,66 @@ ghci>maximum' "Haskell"
 4. maximum' [7] 匹配第二个模式，直接返回 7
 
 5. 这时看起来是这样 max 1 (max 9 7) -- 所以结果是 9 啦！！！
-
 {% endhighlight %}
+
+> **repeat**
+
+**repeat** 函数返回某个元素的无限 List 。
+
+{% highlight haskell %}
+repeat 3
+[3,3,3,3,3,3,3,3,3,3......]
+{% endhighlight %}
+
+用递归去实现 **repeat** 非常简单。
+
+{% highlight haskell %}
+repeat' :: a -> [a]
+repeat' x = x:repeat' x
+{% endhighlight %}
+
+很简单吧！*repeat'* 接受一个参数并返回包含这个参数的 List 。*repeat' 3* 的执行过程就是不停的将 3 插入到 *repeat' 3* 返回的 List 中。
+
+{% highlight haskell %}
+ghci>rep
+repeat     repeat'    replicate
+
+ghci>repeat' 4
+[4,4,4,4,4,4,4,4,4,.......
+
+ghci>take 5 (repeat' 6 )
+[6,6,6,6,6]
+-- 这里用到了 take 函数，表着急，下面说，不过你应该已经知道他能干啥了！
+{% endhighlight %}
+
+> **take**
+
+**take** 函数返回一个 List 的前 n 项。
+
+{% highlight haskell %}
+ghci>:t take
+take :: Int -> [a] -> [a]
+
+ghci>take 2 [1, 2, 3, 4, 5]
+[1,2]
+
+ghci>take 3 "Haskell"
+"Has"
+
+ghci>take (-10) [1, 2]
+[]
+{% endhighlight %}
+
+不过 **take** 函数有几个边界条件，当取负数或 0 个 List 元素时会返回空 List ，在空 List 中取元素当然也返回空 List 。用递归实现它看起来像这样：
+
+{% highlight haskell %}take' :: (Num i, Ord i) => i -> [a] -> [a]
+take' :: (Integral i) => i -> [a] -> [a]
+take' n _
+    | n <= 0   = []
+take' _ []     = []
+take' n (x:xs) = x:take' (n-1) xs
+{% endhighlight %}
+
+> **replicate**
+
+**replicate**
