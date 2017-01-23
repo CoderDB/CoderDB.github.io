@@ -269,3 +269,12 @@ ghci>reverse' [1, 2, 3]
 ghci>reverse' ""
 ""
 {% endhighlight %}
+
+总结
+---
+---
+
+写了这么多递归，也发现了一些递归的规律。总是将一个问题分解成多个模块，然后单独为每个模块匹配合适的代码，很有成效的将一个复杂问题分解成几个简单的小问题。总是要有边界条件，就像 **if** 语句的判断条件一样，考虑好边界条件之后，只需要单独针对一个元素去考虑真正解决问题代码，然后其他的元素都是递归调用自身。就像斐波拉契数列，定义好（0 = error "some error", 1 = 1, 2 = 2）这些边界条件，剩下只需要考虑 $$a_n = a_{n-1} + a_{n-2}$$ 就像考虑 3 = 2 + 1 一样，而其余元素都是递归调用。真正像列数学题一样的编程，真的是倍爽。
+
+* [可以在这里下载到相关的 Playground](https://github.com/redtwowolf/redtwowolf.github.io/tree/master/_code/HaskellAndSwift/Recursion.playground)
+* [test.hs](https://github.com/redtwowolf/redtwowolf.github.io/blob/master/_code/HaskellAndSwift/test.hs)
