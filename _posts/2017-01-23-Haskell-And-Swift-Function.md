@@ -116,11 +116,6 @@ ghci> mulThree 3 4 5
 3. 再以 4 呼叫
 {% endhighlight %}
 
-
-
-
-
-
 $$f(g(x))$$
 ---
 ---
