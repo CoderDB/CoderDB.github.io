@@ -32,7 +32,7 @@ feature-img: "img/pink.jpg"
 ---
 ---
 
-![function](http://ogkg37m8j.bkt.clouddn.com/image/jpg/haskellandswift/function/function.jpg)
+![func](http://ogkg37m8j.bkt.clouddn.com/image/jpg/haskellandswift/function/function.jpg)
 
 这就是函数啦！它就干这点事儿······
 
@@ -128,7 +128,7 @@ myMax(10)(8)
 // 10
 {% endhighlight %}
 
-![]()
+![](http://ogkg37m8j.bkt.clouddn.com/image/jpg/haskellandswift/function/curriedfunction.jpg)
 
 这个例子还不够明显，再举一个例子🌰🌰🌰🌰🌰🌰🌰 在 **test.hs** 文件中声明一个名为 *addThree* 的函数，他的作用是将三个数加起来。
 
@@ -252,4 +252,50 @@ ghci>addOne 3 4
 9
 {% endhighlight %}
 
-看！这就是将一个函数作为参数传给另一个函数，这就是高阶函数。
+看！这就是将一个函数作为参数传给另一个函数，这就是高阶函数。再比如将前面的 max'' 函数传入 **zipWith** ，因为它的型别也符合 **zipWith** 函参的要求。
+
+{% highlight haskell %}
+ghci>:t max''
+max'' :: Ord a => a -> a -> a
+
+ghci>zipWith max'' [1, 2] [3, 4, 8, 9]
+[3,4]
+{% endhighlight %}
+
+
+<h3>map</h3>
+
+高阶函数怎么能少的了 **map** 。😎😎😎😎😎😎😎
+
+**map** 是对一个 List 中的每个元素做操作后生成一个新的 List 返回。
+
+{% highlight haskell %}
+ghci>:t map
+map :: (a -> b) -> [a] -> [b]
+
+ghci>map (+1) [1, 2, 3]
+[2,3,4]
+-- 对一个 List 的所有元素加 1
+
+ghci>map (replicate 3) [2, 3, 4]
+[[2,2,2],[3,3,3],[4,4,4]]
+-- 对 [2, 3, 4] 的每个元素做 replicate 3 操作，返回3个2，3个3，3个4
+{% endhighlight %}
+
+
+<h3>filter</h3>
+
+**filter** 函数是从一个 List 中筛选出一组数据形成一个新的 List 。
+
+{% highlight haskell %}
+ghci>:t filter
+filter :: (a -> Bool) -> [a] -> [a]
+
+ghci>filter (>5) [1, 7, 9, 0, -10]
+[7,9]
+-- 大于5的所有元素
+
+ghci>filter (`elem` ['A'..'Z']) "I am a good man"
+"I"
+-- 筛选出大写字母
+{% endhighlight %}
