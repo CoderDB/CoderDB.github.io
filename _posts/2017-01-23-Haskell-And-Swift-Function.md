@@ -196,9 +196,60 @@ addTwo(5)
 {% endhighlight %}
 
 
+<h3>不全呼叫</h3>
+
+你肯定发现了前面这样来调用 *addThree* 函数
+
+{% highlight haskell %}
+ghci>let addTwo = addThree 1 3
+ghci>addTwo 4
+8
+{% endhighlight %}
+
+这被称作 **不全呼叫** 的函数。所谓 *不全呼叫* 就是参数不全的呼叫函数。比如 *addTwo* 这个函数就是不全呼叫，它是把 *addThree 1 3* 的返回函数绑定到自己身上。
+
+{% highlight haskell %}
+ghci>:t addTwo
+addTwo :: Num a => a -> a
+
+ghci>:t addThree 1 3
+addThree 1 3 :: Num a => a -> a
+{% endhighlight %}
+
+就像刚刚的 *addTwo* 一样，*不全呼叫* 还可以轻松地创建函数。比如将 *addThree 2* 绑定到 *addOne* 上又是一个不全呼叫产生的函数。
+
+
 
 $$f(g(x))$$
 ---
 ---
 
 高阶函数就是把一个函数作为另一个函数的参数。
+
+还记得[之前](https://redtwowolf.github.io/2017/01/19/Haskell-And-Swift-Recursion.html)的那个 **zipWith** 函数嘛？记得它的型别嘛？
+
+{% highlight haskell %}
+ghci>:t zipWith
+zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
+{% endhighlight %}
+
+它接受三个参数，第一个参数是一个 a -> b -> c 型别的函数。刚刚的 *addOne* 是什么型别呢？
+
+{% highlight haskell %}
+ghci>:t addOne
+addOne :: Num a => a -> a -> a
+{% endhighlight %}
+
+虽然 zipWith 要求的函参是 a -> b -> c 的，那么 a -> a -> a 的型别行不行呢？
+
+{% highlight haskell %}
+ghci>zipWith addOne [1, 2] [3, 4]
+[6,8]
+-- what? 😱😱😱 怎么是 [6, 8] 不应该是 [4, 6] 吗？ 😳😳😳😳😳😳
+-- 别忘了 addOne = addThree 2
+
+ghci>addOne 3 4
+9
+{% endhighlight %}
+
+看！这就是将一个函数作为参数传给另一个函数，这就是高阶函数。

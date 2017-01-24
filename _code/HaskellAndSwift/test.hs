@@ -169,3 +169,15 @@ replicate' n x
 reverse' :: [a] -> [a]
 reverse' [] = []
 reverse' (x:xs) = reverse' xs ++ [x]
+
+-- Functions
+
+-- max''
+max'' :: (Ord a) => a -> a -> a
+max'' x y
+    | x > y = x
+    | otherwise = y
+
+-- addThree
+addThree :: (Num a) => a -> a -> a -> a
+addThree x y z = x + y + z
