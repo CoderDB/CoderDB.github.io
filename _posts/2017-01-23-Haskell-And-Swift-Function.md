@@ -84,6 +84,14 @@ max'' x y
 再来测试一下看是不是如上所述。🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰
 
 {% highlight haskell %}
+-- 将 test.hs 加载进来
+ghci>:l test.hs
+[1 of 1] Compiling Main             ( test.hs, interpreted )
+Ok, modules loaded: Main.
+
+ghci>max
+max       max'      max''     maxBound  maximum   maximum'
+
 ghci>(max'' 10) 8
 10
 
@@ -91,40 +99,103 @@ ghci> max'' 10 8
 10
 {% endhighlight %}
 
-那么 "*(max'' 10) 8*" 是怎么工作的呢？
+那么 *(max'' 10) 8* 是怎么工作的呢？
 
 {% highlight haskell %}
 1. (max'' 10) 8
+
 2. 先以 10 呼叫 max'' 并返回一个(a->a)函数
-3. (a->a)函数传入 a 并返回 a ，8 -> 8
-3. 再以 8 呼叫
+
+3. (a->a)函数将 8 做为参数传入
+
+4. 最终返回比较结果
 {% endhighlight %}
 
-这个例子还不够明显，再举一个例子🌰🌰🌰🌰🌰🌰🌰 在 **test.hs** 文件中声明一个名为 *mulThree* 的函数，他的作用是将三个数乘起来。
+如果以 Swift 来的观点来看可能会更加清晰。
+
+{% highlight swift %}
+func myMax(_ a: Int) -> (Int) -> Int {
+    return { (b: Int) -> Int  in  // 返回一个 (Int) -> Int 这样的函数
+        return a > b ? a : b
+    }
+}
+{% endhighlight %}
+
+像这样来调用试一试。
+
+{% highlight swift %}
+myMax(10)(8)
+// 10
+{% endhighlight %}
+
+![]()
+
+这个例子还不够明显，再举一个例子🌰🌰🌰🌰🌰🌰🌰 在 **test.hs** 文件中声明一个名为 *addThree* 的函数，他的作用是将三个数加起来。
 
 {% highlight haskell %}
--- mulThree
-mulThree :: (Num a) => a -> a -> a -> a
-mulThree x y z = x * y * z
+-- addThree
+addThree :: (Num a) => a -> a -> a -> a
+addThree x y z = x + y + z
 {% endhighlight %}
 
 加载到 ghci 中，测试一下。
 
 {% highlight haskell %}
-ghci> mulThree 1 2 3
-6
+ghci>addThree 1 3 4
+8
 
-ghci> mulThree 3 4 5
-60
+ghci>let addTwo = addThree 1 3
+ghci>addTwo 4
+8
 {% endhighlight %}
 
-比如 mulThree 3 4 5 是这样工作的：
+比如 addThree 3 4 5 是这样工作的：
 
 {% highlight haskell %}
-1. mulThree 3 4 5
-2. 首先以 3 呼叫 mulThree ，返回一个(a->(a->a))函数
-3. 再以 4 呼叫
+1. addThree 3 4 5
+
+2. 首先以 3 呼叫 addThree ，返回一个(a->(a->a))函数
+
+3. 再以 4 呼叫 addThree ，返回一个 (a->a) 函数，此时回传的函数已经与 3 相加
+
+4. 再以 5 呼叫 addThree ，返回三数相加结果
 {% endhighlight %}
+
+如果用 Swift 来实现的话，像这样：
+
+{% highlight swift %}
+func addThree(_ a: Int) -> (Int) -> (Int) -> Int {
+    return {(b: Int) -> (Int) -> Int in
+        return {(c: Int) -> Int in
+            return a + b + c
+        }
+    }
+}
+{% endhighlight %}
+
+还可以写的更简单些。
+
+{% highlight swift %}
+func addThree(_ a: Int) -> (Int) -> (Int) -> Int {
+    return { b in
+        return { c in
+            return a + b + c
+        }
+    }
+}
+{% endhighlight %}
+
+调用起来是这样：
+{% highlight swift %}
+addThree(3)(4)(5)
+// 12
+
+let addTwo = addThree(3)(4)
+addTwo(5)
+// 12
+{% endhighlight %}
+
+
 
 $$f(g(x))$$
 ---
