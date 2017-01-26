@@ -75,4 +75,4 @@ fib(n: 10)
 ![](http://ogkg37m8j.bkt.clouddn.com/image/jpg/swiftrecursion/stackframe.jpg)
 
 * esp （Extended Stack Pointer）栈指针寄存器，存放一个指针，该指针永远指向系统栈最上面一个栈帧的栈顶。
-* ebp （Extended Base Pointer）基址指针寄存器，存放一个指针，该指针永远指向系统栈最上面一个栈帧的底部
+* ebp （Extended Base Pointer）基址指针寄存器，存放一个指针，该指针永远指向系统栈最上面一个栈帧的底部。

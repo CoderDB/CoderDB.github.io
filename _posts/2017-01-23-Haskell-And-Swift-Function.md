@@ -329,6 +329,60 @@ ghci>map (\(x, y) -> x + y) [(1, 2), (3, 4), (5, 6)]
 [3,7,11]
 {% endhighlight %}
 
+> **foldl**
+
+{% highlight haskell %}
+ghci>:t foldl
+foldl :: Foldable t => (b -> a -> b) -> b -> t a -> b
+{% endhighlight %}
+
+*左折叠* 它从 List 的左端开始折叠，传入一个初始值，并用初始值逐个与 List 的元素呼叫第一个函数参数得到累加值。
+
+{% highlight haskell %}
+ghci>foldl (+) 5 [1, 2, 3, 4]
+8
+-- 它的执行过程是这样
+-- 5 + 1 => 6
+-- 6 + 2 => 8
+-- 8 + 3 => 11
+-- 11 + 4 => 15
+
+ghci>foldl (+) 0 [1, 2]
+3
+{% endhighlight %}
+
+> 用 **foldl** 重写 **sum** 函数
+
+**sum** 是对 List 中的元素求和的函数，之前的文章中也有实现自己的 *sum'* 函数，在这里用匿名函数和 **foldl** 来重写它。在 **test.hs** 文件中创建 *sum''* 函数像这样：
+
+{% highlight haskell %}
+-- sum''
+sum'' :: (Num a) => [a] -> a
+sum'' xs = foldl (\acc x -> acc + x) 0 xs
+{% endhighlight %}
+
+测试一下🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰🌰
+
+{% highlight haskell %}
+ghci>sum
+sum    sum'   sum''
+
+ghci>let test = [1, 2, 3, 4, 5]
+
+ghci>sum test
+15
+
+ghci>sum' test
+15
+
+ghci>sum'' test
+15
+{% endhighlight %}
+
+
+
+
+
 <h3>Swift 中的匿名函数</h3>
 
 其实已经见过了！前面 *不全呼叫* 的例子中就有这样的 Swift 实现：
@@ -356,4 +410,4 @@ func addThree(_ a: Int) -> (Int) -> (Int) -> Int {
 }
 {% endhighlight %}
 
-关于 Swift 中的匿名函数(闭包)相关的知识非常多，这里给出最基本也是最根本的形式，其他的枝枝叶叶还要你自己给它填上。
+关于 Swift 中的匿名函数(闭包)相关的知识有很多，这里给出最基本也是最根本的形式，其他的枝枝叶叶还要你自己给它填上。
