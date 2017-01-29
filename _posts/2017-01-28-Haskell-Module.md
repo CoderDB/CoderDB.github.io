@@ -209,3 +209,168 @@ ghci>transpose [[1,2,3], [4,5,6], [7,8,9]]
 ghci>transpose ["I", "am", "Icon", "man"]
 ["IaIm","mca","on","n"]
 {% endhighlight %}
+
+> **foldl'**
+
+**foldl'** 与 [**foldl**](https://redtwowolf.github.io/2017/01/27/Fold-Scan.html) 功能是一致的，只不过后者是惰性的。
+
+{% highlight haskell %}
+ghci>foldl' (+) 0 [1, 2, 3, 4, 5]
+15
+
+ghci>foldl' (-) 10 [1, 2, 3, 4, 5]
+-5
+{% endhighlight %}
+
+> **foldl1'**
+
+**foldl1'** 与 [**foldl1**](https://redtwowolf.github.io/2017/01/27/Fold-Scan.html) 功能是一致的，只不过后者是惰性的。
+
+{% highlight haskell %}
+ghci>foldl1' (+) [1, 2, 3, 4, 5]
+15
+
+ghci>foldl1' (-) [1, 2, 3, 4, 5]
+-13
+{% endhighlight %}
+
+> **concat**
+
+将一组 List 展平成一个 List 。
+
+{% highlight haskell %}
+ghci>:t concat
+concat :: Foldable t => t [a] -> [a]
+
+ghci>concat ["I", "am", "Iron", "man"]
+"IamIronman"
+
+ghci>concat [[1, 2], [3, 4], [5, 6, 7]]
+[1,2,3,4,5,6,7]
+
+ghci>concat [[[1, 2], [5]], [[0, 0],[3, 4]], [[5, 6, 7]]]
+[[1,2],[5],[0,0],[3,4],[5,6,7]]
+{% endhighlight %}
+
+> **concatMap**
+
+**concatMap** = **concat** + **map**
+
+{% highlight haskell %}
+ghci>concatMap (replicate 4) [1,2,3]
+[1,1,1,1,2,2,2,2,3,3,3,3]
+{% endhighlight %}
+
+> **and**
+
+List 中元素都为 **True** 则 **and** 返回 **True** 。
+
+{% highlight haskell %}
+ghci>:t and
+and :: Foldable t => t Bool -> Bool
+
+ghci>and [True, True, True]
+True
+
+ghci>and [True, True, False]
+{% endhighlight %}
+
+> **or**
+
+List 中有一个 **True** 就为 **True** 。
+
+{% highlight haskell %}
+ghci>:t or
+or :: Foldable t => t Bool -> Bool
+
+ghci>or [True, True, True]
+True
+
+ghci>or [True, False, False]
+True
+
+ghci>or [False, False, False]
+False
+{% endhighlight %}
+
+> **any**
+
+**any** 当 List 中有一个元素满足给定的条件就返回 **True** 。
+
+{% highlight haskell %}
+ghci>:t any
+any :: Foldable t => (a -> Bool) -> t a -> Bool
+
+ghci>any (>5) [1..10]
+True
+
+ghci>any (>5) [1..5]
+False
+
+ghci>any (==5) [1..5]
+True
+{% endhighlight %}
+
+> **all**
+
+当 List 中所有元素都满足给定条件则返回 **True** 。
+
+{% highlight haskell %}
+ghci>all (>5) [10..20]
+True
+
+ghci>all (>5) [1..20]
+False
+
+ghci>all (==5) $ take 5 $ repeat 5
+True
+{% endhighlight %}
+
+> **iterate**
+
+返回一个给定值呼叫给定函数的无限 List 。
+
+{% highlight haskell %}
+ghci>:t iterate
+iterate :: (a -> a) -> a -> [a]
+
+ghci>take 10 (iterate (*10) 1)
+[1,10,100,1000,10000,100000,1000000,10000000,100000000,1000000000]
+
+ghci>take 10 (iterate (+10) 1)
+[1,11,21,31,41,51,61,71,81,91]
+
+-- 2 的 10 次方
+ghci>take 10 $ iterate (*2) 2
+[2,4,8,16,32,64,128,256,512,1024]
+{% endhighlight %}
+
+> **splitAt**
+
+将一个 List 从给定的某个位置处分开，并返回一个元组。
+
+{% highlight haskell %}
+ghci>:t splitAt
+splitAt :: Int -> [a] -> ([a], [a])
+
+ghci>splitAt 3 "Haskell"
+("Has","kell")
+
+ghci>splitAt 10 "Haskell"
+("Haskell","")
+{% endhighlight %}
+
+> **takewhile**
+
+取一个 List 中符合给定条件的元素，遇到不符合的则停止。
+
+{% highlight haskell %}
+ghci>:t takeWhile
+takeWhile :: (a -> Bool) -> [a] -> [a]
+
+ghci>takeWhile (>5) [1..10]
+[]
+
+ghci>takeWhile (>5) [10..20]
+[10,11,12,13,14,15,16,17,18,19,20]
+{% endhighlight %}
