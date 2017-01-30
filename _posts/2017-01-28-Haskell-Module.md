@@ -360,7 +360,7 @@ ghci>splitAt 10 "Haskell"
 ("Haskell","")
 {% endhighlight %}
 
-> **takewhile**
+> **takeWhile**
 
 取一个 List 中符合给定条件的元素，遇到不符合的则停止。
 
@@ -373,4 +373,119 @@ ghci>takeWhile (>5) [1..10]
 
 ghci>takeWhile (>5) [10..20]
 [10,11,12,13,14,15,16,17,18,19,20]
+{% endhighlight %}
+
+> **dropWhile**
+
+扔掉符合条件的元素，返回余下的元素，换句话说，就是一旦遇到不符合条件的元素立即停止并返回。
+
+{% highlight haskell %}
+ghci>dropWhile (>3) [1..10]
+[1,2,3,4,5,6,7,8,9,10]
+-- 第一个与元素 1 不大于 3，停止比较并返回
+
+ghci>dropWhile (>0) [1..10]
+[]
+-- 砍掉所有符合条件的元素
+
+ghci>dropWhile (=='a') "abcde"
+"bcde"
+
+ghci>dropWhile (=='a') "abade"
+"bade"
+
+ghci>dropWhile (=='a') "ababa"
+"baba"
+{% endhighlight %}
+
+
+> **span**
+
+将一个 List 在首次👉不符合👈条件的地方断开，前后两部分以元组的形式返回。
+
+{% highlight haskell %}
+ghci>span (/=' ') "Man Women"
+("Man"," Women")
+-- 'M', 'a', 'n' 三个元素和 ' ' 比较都返回 True，直到第四个元素返回 False
+-- 所以 List 在这里断开
+
+ghci>span (>5) [5..10]
+([],[5,6,7,8,9,10])
+
+ghci>span (==5) [5..10]
+([5],[6,7,8,9,10])
+{% endhighlight %}
+
+> **break**
+
+将一个 List 在首次👉符合👈条件的地方断开，前后两部分以元组的形式返回。
+
+{% highlight haskell %}
+ghci>break (/=' ') "Man Women"
+("","Man Women")
+
+ghci>break (>5) [5..10]
+([5],[6,7,8,9,10])
+
+ghci>break (==5) [5..10]
+([],[5,6,7,8,9,10])
+-- 首次遇到符合条件的元素 5 并在这里断开，而 5 则归于返回元组的 snd 中。
+{% endhighlight %}
+
+> **sort**
+
+对一个 List 做升序后返回。
+
+{% highlight haskell %}
+ghci>:t sort
+sort :: Ord a => [a] -> [a]
+
+ghci>sort [-10, 9, 100, 7, -7]
+[-10,-7,7,9,100]
+
+ghci>sort [10, 9..1]
+[1,2,3,4,5,6,7,8,9,10]
+{% endhighlight %}
+
+> **group**
+
+对 List 分类，相邻元素如果相等则归为一类。
+
+{% highlight haskell %}
+ghci>group [1, 1, 1, 2, 2, 3, 2, 2, 4, 4, 5, 5]
+[[1,1,1],[2,2],[3],[2,2],[4,4],[5,5]]
+
+ghci>group [1..10]
+[[1],[2],[3],[4],[5],[6],[7],[8],[9],[10]]
+
+ghci>group "haskell"
+["h","a","s","k","e","ll"]
+{% endhighlight %}
+
+
+> **tails**
+
+返回一个 List 的 **tail** ，然后返回 **tail** 的 **tail** 。
+
+{% highlight haskell %}
+ghci>:t tails
+tails :: [a] -> [[a]]
+
+ghci>tails [1, 2, 3]
+[[1,2,3],[2,3],[3],[]]
+
+ghci>tails "Haskell"
+["Haskell","askell","skell","kell","ell","ll","l",""]
+{% endhighlight %}
+
+> **inits**
+
+返回一个 List 的 **init** ，然后返回 **init** 的 **init** 。
+
+{% highlight haskell %}
+ghci>inits [1, 2, 3]
+[[],[1],[1,2],[1,2,3]]
+
+ghci>inits "Haskell"
+["","H","Ha","Has","Hask","Haske","Haskel","Haskell"]
 {% endhighlight %}
