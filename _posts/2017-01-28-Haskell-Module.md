@@ -489,3 +489,159 @@ ghci>inits [1, 2, 3]
 ghci>inits "Haskell"
 ["","H","Ha","Has","Hask","Haske","Haskel","Haskell"]
 {% endhighlight %}
+
+> **isInfixOf**
+
+如果一个 ListA 是 ListB 的子 List 则返回 **True** 。
+
+{% highlight haskell %}
+ghci>:t isInfixOf
+isInfixOf :: Eq a => [a] -> [a] -> Bool
+
+ghci>isInfixOf "man" "I am Irom man"
+True
+
+ghci>"ask" `isInfixOf` "Waht's the Haskell"
+True
+{% endhighlight %}
+
+> **isPrefixOf**
+
+是否以某个 List 开头，如果是返回 **True** 。
+
+{% highlight haskell %}
+ghci>isPrefixOf "I" "I am Irom man"
+True
+
+ghci>"what" `isPrefixOf` "I am Irom man"
+False
+
+ghci>isPrefixOf "What" "What's Haskell"
+True
+{% endhighlight %}
+
+> **isSuffixOf**
+
+是否以某个 List 结尾，如果是返回 **True** 。
+
+{% highlight haskell %}
+ghci>isSuffixOf "I" "I am Icon man"
+False
+
+ghci>isSuffixOf "man" "I am Icon man"
+True
+{% endhighlight %}
+
+> **partition**
+
+以给定条件分割一个 List 并返回一个长成这样的 ([符合], [不符合]) 元组。
+
+{% highlight haskell %}
+ghci>:t partition
+partition :: (a -> Bool) -> [a] -> ([a], [a])
+
+ghci>partition (>5) [1..10]
+([6,7,8,9,10],[1,2,3,4,5])
+{% endhighlight %}
+
+> **find**
+
+找到返回符合给定条件的首个元素。
+
+{% highlight haskell %}
+ghci>:t find
+find :: Foldable t => (a -> Bool) -> t a -> Maybe a
+
+ghci>find (>5) [1..10]
+Just 6
+
+ghci>find (=="Iron") ["I", "am", "Iron", "man"]
+Just "Iron"
+
+ghci>find (>10) [1..10]
+Nothing
+{% endhighlight %}
+
+**Maybe** 是一种类型，这种类型的值只能为 **Nothing** 或 **Just** 。
+
+{% highlight haskell %}
+ghci>let iron = find (=="Iron") ["I", "am", "Iron", "man"]
+ghci>iron
+Just "Iron"
+
+ghci>:t iron
+iron :: Maybe [Char]
+
+ghci>:t Nothing
+Nothing :: Maybe a
+{% endhighlight %}
+
+> **findIndex**
+
+找到符合条件的首个元素的索引。
+
+{% highlight haskell %}
+ghci>findIndex (==4) [1..10]
+Just 3
+
+ghci>findIndex (=="Iron") ["I", "am", "Iron", "man"]
+Just 2
+
+ghci>findIndex (=='l') "Haskell"
+Just 5
+
+ghci>findIndex (<0) [1..10]
+Nothing
+{% endhighlight %}
+
+> **findIndices**
+
+返回符合条元素的所有索引。
+
+{% highlight haskell %}
+ghci>findIndices (`elem` ['A'..'Z']) "I am Iron man"
+[0,5]
+
+ghci>findIndices (=='l') "Haskell"
+[5,6]
+
+ghci>findIndices (=='z') "Haskell"
+[]
+{% endhighlight %}
+
+
+>**elemIndex**
+
+返回元素在 List 的索引。
+
+{% highlight haskell %}
+ghci>:t elemIndex
+elemIndex :: Eq a => a -> [a] -> Maybe Int
+
+ghci>elemIndex 5 [1..10]
+Just 4
+
+ghci>elemIndex 'k' "Haskell"
+Just 3
+
+ghci>' ' `elemIndex` "Haskell"
+Nothing
+{% endhighlight %}
+
+> **elemIndices**
+
+返回元素在 List 的索引组成的 List。
+
+{% highlight haskell %}
+ghci>:t elemIndices
+elemIndices :: Eq a => a -> [a] -> [Int]
+
+ghci>elemIndices 5 [1..10]
+[4]
+
+ghci>elemIndices 'k' "Haskell"
+[3]
+
+ghci>elemIndices 'l' "Haskell"
+[5,6]
+{% endhighlight %}
