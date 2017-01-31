@@ -1,7 +1,7 @@
 ---
 layout: post
 date: 2017-01-30
-title: Haskell 中的 Data.List
+title: Haskell -- Data.List
 feature-img: "img/blue.jpg"
 ---
 
@@ -530,4 +530,202 @@ ghci>elemIndices 'k' "Haskell"
 
 ghci>elemIndices 'l' "Haskell"
 [5,6]
+{% endhighlight %}
+
+
+
+> **zip**
+
+🤔🤔🤔🤔🤔 **zip** ? 不是在[前面](https://redtwowolf.github.io/2017/01/19/Haskell-And-Swift-Recursion.html)就已经说过了吗？ No No NO 这里说的是 **zip3, zip4 ... zip7** 😱😱😱😱😱 **zip7** ??? 你最好不要逗我 😏😏😏😏😏
+
+{% highlight haskell %}
+-- 在装载了 Data.List 之后
+ghci>:t zip
+zip       zip3      zip4      zip5      zip6      zip7      zipWith   zipWith3  zipWith4  zipWith5  zipWith6  zipWith7
+
+-- zip
+ghci>zip [1, 2] [3, 4]
+[(1,3),(2,4)]
+
+-- zip3
+ghci>:t zip3
+zip3 :: [a] -> [b] -> [c] -> [(a, b, c)]
+
+ghci>zip3 [1, 2] [3, 4] [5, 6]
+[(1,3,5),(2,4,6)]
+
+-- zip4
+ghci>zip4 [1, 2] [3] [4, 5, 6] [7, 8]
+[(1,3,4,7)]
+
+-- zip7
+ghci>:t zip7
+zip7
+  :: [a]
+     -> [b]
+     -> [c]
+     -> [d]
+     -> [e]
+     -> [f]
+     -> [g]
+     -> [(a, b, c, d, e, f, g)]
+
+
+{% endhighlight %}
+
+> **zipWith**
+
+和 **zip** 一样也有 **zipWith3, zipWith4 ... zipWith7** 。
+
+{% highlight haskell %}
+-- 在装载了 Data.List 之后
+ghci>:t zipWith
+zipWith   zipWith3  zipWith4  zipWith5  zipWith6  zipWith7
+
+-- zipWith
+ghci>:t zipWith
+zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
+
+ghci>zipWith (+) [1, 2] [3, 4]
+[4,6]
+
+-- zipWith3
+ghci>:t zipWith3
+zipWith3 :: (a -> b -> c -> d) -> [a] -> [b] -> [c] -> [d]
+
+ghci>zipWith3 (\x y z -> x + y -z) [1, 2] [3, 4] [5, 6]
+[-1,0]
+
+-- zipWith4
+ghci>:t zipWith4
+zipWith4
+  :: (a -> b -> c -> d -> e) -> [a] -> [b] -> [c] -> [d] -> [e]
+
+ghci>zipWith4 (\o p q r -> o * 2 + p * 3 - q * 2 - r * 3) [1, 2] [3, 4] [5, 6] [7, 8]
+[-20,-20]
+
+ghci>:t zipWith7
+zipWith7
+  :: (a -> b -> c -> d -> e -> f -> g -> h)
+     -> [a] -> [b] -> [c] -> [d] -> [e] -> [f] -> [g] -> [h]
+{% endhighlight %}
+
+> **unzip**
+
+**unzip** 功能与 **zip** 相反，但返回的仍然是元组。它也有 **unzip, unzip3, unzip4 ... unzip7** 。
+
+{% highlight haskell %}
+ghci>:t unzip
+unzip   unzip3  unzip4  unzip5  unzip6  unzip7
+
+ghci>:t unzip
+unzip :: [(a, b)] -> ([a], [b])
+
+ghci>unzip [(1, 3), (2, 4)]
+([1,2],[3,4])
+
+ghci>unzip $ zip [1, 2] [3, 4]
+([1,2],[3,4])
+
+ghci>unzip3 $ zip3 [1, 2] [3, 4] [5, 6]
+([1,2],[3,4],[5,6])
+
+ghci>unzip4 $ zip4 [1, 2] [3] [4, 5, 6] [7, 8]
+([1],[3],[4],[7])
+
+ghci>:t unzip7
+unzip7
+  :: [(a, b, c, d, e, f, g)] -> ([a], [b], [c], [d], [e], [f], [g])
+{% endhighlight %}
+
+> **lines**
+
+**lines** 返回字符串被换行符 *\n* 切割后形成的 List 。
+
+{% highlight haskell %}
+ghci>:t lines
+lines :: String -> [String]
+
+ghci>lines "I am Iron man"
+["I am Iron man"]
+
+ghci>lines "I \nam\nIron\nman"
+["I ","am","Iron","man"]
+
+ghci>lines "Latte\n25 yuan\nCappuccino\n32 yuan"
+["Latte","25 yuan","Cappuccino","32 yuan"]
+{% endhighlight %}
+
+> **unlines**
+
+**unlines** 与 **lines** 相反。
+
+{% highlight haskell %}
+ghci>:t unlines
+unlines :: [String] -> String
+
+ghci>unlines ["I ","am","Iron","man"]
+"I \nam\nIron\nman\n"
+
+ghci>unlines ["Latte","25 yuan","Cappuccino","32 yuan"]
+"Latte\n25 yuan\nCappuccino\n32 yuan\n"
+{% endhighlight %}
+
+> **words**
+
+**words** 将一个字符串通过一组字符 (\t \n 空格...) 切断放到 List 中返回。
+
+{% highlight haskell %}
+ghci>:t words
+words :: String -> [String]
+
+ghci>words "I am Iron man"
+["I","am","Iron","man"]
+
+ghci>words "Iam Iron man"
+["Iam","Iron","man"]
+ghci>words "Iam    Iron man"
+["Iam","Iron","man"]
+
+ghci>words "Latte\n25 yuan\nCappuccino\n32 yuan\n"
+["Latte","25","yuan","Cappuccino","32","yuan"]
+
+ghci>words "Latte\t25 yuan\tCappuccino\t32 yuan"
+["Latte","25","yuan","Cappuccino","32","yuan"]
+
+ghci>words "I\tam\nIcon man"
+["I","am","Icon","man"]
+{% endhighlight %}
+
+> **unwords**
+
+**unwords** 与 **words** 功能相反。
+
+{% highlight haskell %}
+ghci>:t unwords
+unwords :: [String] -> String
+
+ghci>unwords ["I","am","Icon","man"]
+"I am Icon man"
+
+ghci>unwords ["Latte","25","yuan","Cappuccino","32","yuan"]
+"Latte 25 yuan Cappuccino 32 yuan"
+{% endhighlight %}
+
+> **nub**
+
+去掉 List 中重复的元素。
+
+{% highlight haskell %}
+ghci>nub [1, 2, 4, 5, 6, 6, 2, 3, 1]
+[1,2,4,5,6,3]
+
+ghci>nub "Haskell"
+"Haskel"
+
+ghci>nub "I am Iron man"
+"I amron"
+
+ghci>nub [[1,3], [2, 3], [1,3], [2,5]]
+[[1,3],[2,3],[2,5]]
 {% endhighlight %}
