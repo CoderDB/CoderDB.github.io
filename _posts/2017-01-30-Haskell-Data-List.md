@@ -729,3 +729,90 @@ ghci>nub "I am Iron man"
 ghci>nub [[1,3], [2, 3], [1,3], [2,5]]
 [[1,3],[2,3],[2,5]]
 {% endhighlight %}
+
+> **delete**
+
+**delete** 删除第一次找到的目标。
+
+{% highlight haskell %}
+ghci>:t delete
+delete :: Eq a => a -> [a] -> [a]
+
+ghci>delete 'l' "Haskell"
+"Haskel"
+
+ghci>delete 2 [1, 2, 4, 5, 6, 6, 2, 3, 1]
+[1,4,5,6,6,2,3,1]
+
+ghci>delete 1 $ take 5 $ repeat 1
+[1,1,1,1]
+
+ghci>delete 'l' $ delete 'l' "Haskell"
+"Haske"
+{% endhighlight %}
+
+> **<code>\\</code>**
+
+ **<code>\\</code>** 从左侧 List 中删除包含在右侧 List 中的元素。类似于差集。  
+
+{% highlight haskell %}
+ghci>:t (\\)
+(\\) :: Eq a => [a] -> [a] -> [a]
+
+ghci>"I am Iron man" \\ "man"
+"I  Iro man"
+
+ghci>[1..10] \\ [1..5]
+[6,7,8,9,10]
+{% endhighlight %}
+
+> **union**
+
+**union** 就是并集。
+
+{% highlight haskell %}
+ghci>:t union
+union :: Eq a => [a] -> [a] -> [a]
+
+ghci>union [1, 2] [3..10]
+[1,2,3,4,5,6,7,8,9,10]
+
+ghci>union [1..10] [3..10]
+[1,2,3,4,5,6,7,8,9,10]
+
+ghci>union "I am Iron man" "Spide man"
+"I am Iron manSpide"
+
+ghci>union [[1, 2], [3, 4]] []
+[[1,2],[3,4]]
+
+ghci>union [[1, 2], [3, 4]] [[]]
+[[1,2],[3,4],[]]
+
+ghci>union [[1, 2], [3, 4]] [[1], [1, 2], [2, 3], [3, 4], [5, 6]]
+[[1,2],[3,4],[1],[2,3],[5,6]]
+{% endhighlight %}
+
+> **intersect**
+
+**intersect** 交集。
+
+{% highlight haskell %}
+ghci>:t intersect
+intersect :: Eq a => [a] -> [a] -> [a]
+
+ghci>intersect [1..5] [3..10]
+[3,4,5]
+
+ghci>intersect [[1, 2], [3, 4]] [[1], [1, 2], [2, 3], [3, 4], [5, 6]]
+[[1,2],[3,4]]
+
+ghci>intersect [[1, 2], [3, 4]] []
+[]
+
+ghci>intersect "I am Iron man" "Spide man"
+" am n man"
+
+ghci>intersect "I am Iron man" "you foolish"
+"  o "
+{% endhighlight %}
