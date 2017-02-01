@@ -1,7 +1,7 @@
 ---
 layout: post
 date: 2017-01-30
-title: Haskell -- Data.List
+title: Haskell 中的 Data.List
 feature-img: "img/blue.jpg"
 ---
 
@@ -532,287 +532,104 @@ ghci>elemIndices 'l' "Haskell"
 [5,6]
 {% endhighlight %}
 
+> **genericLength**
 
-
-> **zip**
-
-🤔🤔🤔🤔🤔 **zip** ? 不是在[前面](https://redtwowolf.github.io/2017/01/19/Haskell-And-Swift-Recursion.html)就已经说过了吗？ No No NO 这里说的是 **zip3, zip4 ... zip7** 😱😱😱😱😱 **zip7** ??? 你最好不要逗我 😏😏😏😏😏
+**genericLength** 是 **length** 函数更通用的版本。
 
 {% highlight haskell %}
--- 在装载了 Data.List 之后
-ghci>:t zip
-zip       zip3      zip4      zip5      zip6      zip7      zipWith   zipWith3  zipWith4  zipWith5  zipWith6  zipWith7
+-- genericLength 返回类型 Num
+ghci>:t genericLength
+genericLength :: Num i => [a] -> i
 
--- zip
-ghci>zip [1, 2] [3, 4]
-[(1,3),(2,4)]
+-- length 返回类型 Int
+ghci>:t length
+length :: Foldable t => t a -> Int
 
--- zip3
-ghci>:t zip3
-zip3 :: [a] -> [b] -> [c] -> [(a, b, c)]
+ghci>genericLength [1, 2] / 2
+1.0
 
-ghci>zip3 [1, 2] [3, 4] [5, 6]
-[(1,3,5),(2,4,6)]
-
--- zip4
-ghci>zip4 [1, 2] [3] [4, 5, 6] [7, 8]
-[(1,3,4,7)]
-
--- zip7
-ghci>:t zip7
-zip7
-  :: [a]
-     -> [b]
-     -> [c]
-     -> [d]
-     -> [e]
-     -> [f]
-     -> [g]
-     -> [(a, b, c, d, e, f, g)]
-
+ghci>length [1, 2] / 2
+<interactive>:43:1: error:
+    • No instance for (Fractional Int) arising from a use of ‘/’
+    • In the expression: length [1, 2] / 2
+      In an equation for ‘it’: it = length [1, 2] / 2
 
 {% endhighlight %}
 
-> **zipWith**
+> **genericTake**
 
-和 **zip** 一样也有 **zipWith3, zipWith4 ... zipWith7** 。
+**take** 更通用的版本。
 
 {% highlight haskell %}
--- 在装载了 Data.List 之后
-ghci>:t zipWith
-zipWith   zipWith3  zipWith4  zipWith5  zipWith6  zipWith7
+ghci>:t genericTake
+genericTake :: Integral i => i -> [a] -> [a]
 
--- zipWith
-ghci>:t zipWith
-zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
-
-ghci>zipWith (+) [1, 2] [3, 4]
-[4,6]
-
--- zipWith3
-ghci>:t zipWith3
-zipWith3 :: (a -> b -> c -> d) -> [a] -> [b] -> [c] -> [d]
-
-ghci>zipWith3 (\x y z -> x + y -z) [1, 2] [3, 4] [5, 6]
-[-1,0]
-
--- zipWith4
-ghci>:t zipWith4
-zipWith4
-  :: (a -> b -> c -> d -> e) -> [a] -> [b] -> [c] -> [d] -> [e]
-
-ghci>zipWith4 (\o p q r -> o * 2 + p * 3 - q * 2 - r * 3) [1, 2] [3, 4] [5, 6] [7, 8]
-[-20,-20]
-
-ghci>:t zipWith7
-zipWith7
-  :: (a -> b -> c -> d -> e -> f -> g -> h)
-     -> [a] -> [b] -> [c] -> [d] -> [e] -> [f] -> [g] -> [h]
+ghci>:t take
+take :: Int -> [a] -> [a]
 {% endhighlight %}
 
-> **unzip**
+> **genericDrop**
 
-**unzip** 功能与 **zip** 相反，但返回的仍然是元组。它也有 **unzip, unzip3, unzip4 ... unzip7** 。
+与 **drop** 一样，去掉一个 List 的前几项。
 
 {% highlight haskell %}
-ghci>:t unzip
-unzip   unzip3  unzip4  unzip5  unzip6  unzip7
+ghci>:t genericDrop
+genericDrop :: Integral i => i -> [a] -> [a]
 
-ghci>:t unzip
-unzip :: [(a, b)] -> ([a], [b])
+ghci>:t drop
+drop :: Int -> [a] -> [a]
 
-ghci>unzip [(1, 3), (2, 4)]
-([1,2],[3,4])
-
-ghci>unzip $ zip [1, 2] [3, 4]
-([1,2],[3,4])
-
-ghci>unzip3 $ zip3 [1, 2] [3, 4] [5, 6]
-([1,2],[3,4],[5,6])
-
-ghci>unzip4 $ zip4 [1, 2] [3] [4, 5, 6] [7, 8]
-([1],[3],[4],[7])
-
-ghci>:t unzip7
-unzip7
-  :: [(a, b, c, d, e, f, g)] -> ([a], [b], [c], [d], [e], [f], [g])
+ghci>genericDrop 5 [3..10]
+[8,9,10]
 {% endhighlight %}
 
-> **lines**
+> **genericIndex**
 
-**lines** 返回字符串被换行符 *\n* 切割后形成的 List 。
+是 **!!** 更通用的版本。
 
 {% highlight haskell %}
-ghci>:t lines
-lines :: String -> [String]
+ghci>:t genericIndex
+genericIndex :: Integral i => [a] -> i -> a
 
-ghci>lines "I am Iron man"
-["I am Iron man"]
+ghci>:t (!!)
+(!!) :: [a] -> Int -> a
 
-ghci>lines "I \nam\nIron\nman"
-["I ","am","Iron","man"]
+ghci>[1..10] !! 5
+6
 
-ghci>lines "Latte\n25 yuan\nCappuccino\n32 yuan"
-["Latte","25 yuan","Cappuccino","32 yuan"]
+ghci>genericIndex [1..10] 5
+6
 {% endhighlight %}
 
-> **unlines**
+> **genericSplitAt**
 
-**unlines** 与 **lines** 相反。
+与 **splitAt** 一致。
 
 {% highlight haskell %}
-ghci>:t unlines
-unlines :: [String] -> String
+ghci>:t genericSplitAt
+genericSplitAt :: Integral i => i -> [a] -> ([a], [a])
 
-ghci>unlines ["I ","am","Iron","man"]
-"I \nam\nIron\nman\n"
+ghci>:t splitAt
+splitAt :: Int -> [a] -> ([a], [a])
 
-ghci>unlines ["Latte","25 yuan","Cappuccino","32 yuan"]
-"Latte\n25 yuan\nCappuccino\n32 yuan\n"
+ghci>genericSplitAt 5 [1..10]
+([1,2,3,4,5],[6,7,8,9,10])
+
+ghci>splitAt 5 [1..10]
+([1,2,3,4,5],[6,7,8,9,10])
 {% endhighlight %}
 
-> **words**
+> **genericReplicate**
 
-**words** 将一个字符串通过一组字符 (\t \n 空格...) 切断放到 List 中返回。
-
-{% highlight haskell %}
-ghci>:t words
-words :: String -> [String]
-
-ghci>words "I am Iron man"
-["I","am","Iron","man"]
-
-ghci>words "Iam Iron man"
-["Iam","Iron","man"]
-ghci>words "Iam    Iron man"
-["Iam","Iron","man"]
-
-ghci>words "Latte\n25 yuan\nCappuccino\n32 yuan\n"
-["Latte","25","yuan","Cappuccino","32","yuan"]
-
-ghci>words "Latte\t25 yuan\tCappuccino\t32 yuan"
-["Latte","25","yuan","Cappuccino","32","yuan"]
-
-ghci>words "I\tam\nIcon man"
-["I","am","Icon","man"]
-{% endhighlight %}
-
-> **unwords**
-
-**unwords** 与 **words** 功能相反。
+与 **replicate** 一致。
 
 {% highlight haskell %}
-ghci>:t unwords
-unwords :: [String] -> String
+ghci>:t genericReplicate
+genericReplicate :: Integral i => i -> a -> [a]
 
-ghci>unwords ["I","am","Icon","man"]
-"I am Icon man"
+ghci>:t replicate
+replicate :: Int -> a -> [a]
 
-ghci>unwords ["Latte","25","yuan","Cappuccino","32","yuan"]
-"Latte 25 yuan Cappuccino 32 yuan"
-{% endhighlight %}
-
-> **nub**
-
-去掉 List 中重复的元素。
-
-{% highlight haskell %}
-ghci>nub [1, 2, 4, 5, 6, 6, 2, 3, 1]
-[1,2,4,5,6,3]
-
-ghci>nub "Haskell"
-"Haskel"
-
-ghci>nub "I am Iron man"
-"I amron"
-
-ghci>nub [[1,3], [2, 3], [1,3], [2,5]]
-[[1,3],[2,3],[2,5]]
-{% endhighlight %}
-
-> **delete**
-
-**delete** 删除第一次找到的目标。
-
-{% highlight haskell %}
-ghci>:t delete
-delete :: Eq a => a -> [a] -> [a]
-
-ghci>delete 'l' "Haskell"
-"Haskel"
-
-ghci>delete 2 [1, 2, 4, 5, 6, 6, 2, 3, 1]
-[1,4,5,6,6,2,3,1]
-
-ghci>delete 1 $ take 5 $ repeat 1
-[1,1,1,1]
-
-ghci>delete 'l' $ delete 'l' "Haskell"
-"Haske"
-{% endhighlight %}
-
-> **<code>\\</code>**
-
- **<code>\\</code>** 从左侧 List 中删除包含在右侧 List 中的元素。类似于差集。  
-
-{% highlight haskell %}
-ghci>:t (\\)
-(\\) :: Eq a => [a] -> [a] -> [a]
-
-ghci>"I am Iron man" \\ "man"
-"I  Iro man"
-
-ghci>[1..10] \\ [1..5]
-[6,7,8,9,10]
-{% endhighlight %}
-
-> **union**
-
-**union** 就是并集。
-
-{% highlight haskell %}
-ghci>:t union
-union :: Eq a => [a] -> [a] -> [a]
-
-ghci>union [1, 2] [3..10]
-[1,2,3,4,5,6,7,8,9,10]
-
-ghci>union [1..10] [3..10]
-[1,2,3,4,5,6,7,8,9,10]
-
-ghci>union "I am Iron man" "Spide man"
-"I am Iron manSpide"
-
-ghci>union [[1, 2], [3, 4]] []
-[[1,2],[3,4]]
-
-ghci>union [[1, 2], [3, 4]] [[]]
-[[1,2],[3,4],[]]
-
-ghci>union [[1, 2], [3, 4]] [[1], [1, 2], [2, 3], [3, 4], [5, 6]]
-[[1,2],[3,4],[1],[2,3],[5,6]]
-{% endhighlight %}
-
-> **intersect**
-
-**intersect** 交集。
-
-{% highlight haskell %}
-ghci>:t intersect
-intersect :: Eq a => [a] -> [a] -> [a]
-
-ghci>intersect [1..5] [3..10]
-[3,4,5]
-
-ghci>intersect [[1, 2], [3, 4]] [[1], [1, 2], [2, 3], [3, 4], [5, 6]]
-[[1,2],[3,4]]
-
-ghci>intersect [[1, 2], [3, 4]] []
-[]
-
-ghci>intersect "I am Iron man" "Spide man"
-" am n man"
-
-ghci>intersect "I am Iron man" "you foolish"
-"  o "
+ghci>genericReplicate 3 5
+[5,5,5]
 {% endhighlight %}
