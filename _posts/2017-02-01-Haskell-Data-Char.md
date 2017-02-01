@@ -161,3 +161,149 @@ False
 ghci>isHexDigit ' '
 False
 {% endhighlight %}
+
+> **isOctDigit**
+
+是否为八进制数。
+
+{% highlight haskell %}
+ghci>isOctDigit '1'
+True
+
+ghci>isOctDigit '8'
+False
+
+ghci>isOctDigit '7'
+True
+
+ghci>isOctDigit 'A'
+False
+
+ghci>isOctDigit 'a'
+False
+{% endhighlight %}
+
+> **isLetter**
+
+是否为字母。
+
+{% highlight haskell %}
+ghci>isLetter 'a'
+True
+
+ghci>isLetter 'A'
+True
+
+ghci>isLetter '&'
+False
+
+ghci>isLetter '1'
+False
+
+ghci>isLetter ' '
+False
+{% endhighlight %}
+
+> **isNumber**
+
+是否为数字。
+
+{% highlight haskell %}
+ghci>isNumber '0'
+True
+
+ghci>isNumber '9'
+True
+
+ghci>isNumber 'a'
+False
+
+ghci>isNumber ' '
+False
+
+ghci>isNumber '&'
+False
+{% endhighlight %}
+
+> **isSymbol**
+
+是否为货币符号。
+
+{% highlight haskell %}
+ghci>isSymbol '$'
+True
+
+ghci>isSymbol '¥'
+True
+
+ghci>isSymbol '&'
+False
+{% endhighlight %}
+
+> **isPunctuation**
+
+是否为标点符号。
+
+{% highlight haskell %}
+ghci>isPunctuation ','
+True
+
+ghci>isPunctuation '.'
+True
+
+ghci>isPunctuation '。'
+True
+
+ghci>isPunctuation '1'
+False
+{% endhighlight %}
+
+> **isLower**
+
+是否为小写字母。
+
+{% highlight haskell %}
+ghci>isLower 'a'
+True
+
+ghci>isLower 'A'
+False
+
+ghci>isLower '1'
+False
+{% endhighlight %}
+
+> **isUpper**
+
+{% highlight haskell %}
+ghci>isUpper 'A'
+True
+
+ghci>isUpper 'a'
+False
+
+ghci>isUpper '1'
+False
+{% endhighlight %}
+
+> **isSpace**
+
+是否为空格。
+
+{% highlight haskell %}
+ghci>isSpace ' '
+True
+{% endhighlight %}
+
+> **isPrint**
+
+判断字符是否可打印。
+
+{% highlight haskell %}
+ghci>isSpace 'A'
+False
+ghci>isPrint '1'
+True
+ghci>isPrint '^'
+True
+{% endhighlight %}
