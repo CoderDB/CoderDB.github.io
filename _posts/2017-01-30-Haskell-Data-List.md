@@ -1,7 +1,7 @@
 ---
 layout: post
 date: 2017-01-30
-title: Haskell 中的 Data.List
+title: Haskell -- Data.List
 feature-img: "img/blue.jpg"
 ---
 
