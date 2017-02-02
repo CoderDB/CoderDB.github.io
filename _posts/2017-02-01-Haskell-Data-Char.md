@@ -307,3 +307,104 @@ True
 ghci>isPrint '^'
 True
 {% endhighlight %}
+
+> **generalCategory**
+
+返回一个字符可能的分类。
+
+{% highlight haskell %}
+ghci>:t generalCategory
+generalCategory :: Char -> GeneralCategory
+
+ghci>generalCategory ' '
+Space
+
+ghci>generalCategory 'A'
+UppercaseLetter
+
+ghci>generalCategory 'a'
+LowercaseLetter
+
+ghci>generalCategory '&'
+OtherPunctuation
+
+ghci>generalCategory '+'
+MathSymbol
+
+ghci>generalCategory '/'
+OtherPunctuation
+
+ghci>generalCategory '?'
+OtherPunctuation
+{% endhighlight %}
+
+> **toUpper**
+
+将一个字符转为大写。
+
+{% highlight haskell %}
+ghci>:t toUpper
+toUpper :: Char -> Char
+
+ghci>toUpper 'a'
+'A'
+
+ghci>toUpper 'A'
+'A'
+
+ghci>toUpper '1'
+'1'
+{% endhighlight %}
+
+> **toLower**
+
+讲一个字符转为小写。
+
+{% highlight haskell %}
+ghci>toLower 'a'
+'a'
+ghci>
+ghci>toLower 'A'
+'a'
+ghci>
+ghci>toLower '1'
+'1'
+ghci>toLower '&'
+'&'
+{% endhighlight %}
+
+> **digitToInt**
+
+将 0~9, 'a'~'f', 'A'~'F' 范围的字符转为 Int 值。
+
+{% highlight haskell %}
+ghci>:t digitToInt
+digitToInt :: Char -> Int
+
+ghci>digitToInt 'a'
+10
+
+ghci>digitToInt 'A'
+10
+
+ghci>digitToInt 'f'
+15
+
+ghci>digitToInt 'F'
+15
+
+ghci>digitToInt 'G'
+*** Exception: Char.digitToInt: not a digit 'G'
+
+ghci>digitToInt 'g'
+*** Exception: Char.digitToInt: not a digit 'g'
+
+ghci>digitToInt '0'
+0
+
+ghci>digitToInt '1'
+1
+
+ghci>digitToInt '9'
+9
+{% endhighlight %}
