@@ -408,3 +408,117 @@ ghci>digitToInt '1'
 ghci>digitToInt '9'
 9
 {% endhighlight %}
+
+> **intToDigit**
+
+与 **digitToInt** 相反。
+
+{% highlight haskell %}
+ghci>intToDigit 0
+'0'
+
+ghci>intToDigit 1
+'1'
+
+ghci>intToDigit 10
+'a'
+
+ghci>intToDigit 15
+'f'
+{% endhighlight %}
+
+> **ord**
+
+将字符按照 ASCII 表转换为对应的数字。
+
+{% highlight haskell %}
+ghci>ord 'a'
+97
+
+ghci>ord 'A'
+65
+
+ghci>ord '&'
+38
+
+ghci>ord '0'
+48
+{% endhighlight %}
+
+> **chr**
+
+与 **ord** 函数功能相反。
+
+{% highlight haskell %}
+ghci>chr 48
+'0'
+
+ghci>chr 97
+'a'
+
+ghci>chr 65
+'A'
+
+ghci>chr 38
+'&'
+
+ghci>chr 127
+'\DEL'
+
+ghci>chr 0
+'\NUL'
+
+ghci>chr 1000
+'\1000'
+{% endhighlight %}
+
+实现一个简单的加密解密函数
+---
+---
+
+在 **testModule.hs** 文件中声明一个 *encode* 与 *dedecode* 函数，像这样：
+
+{% highlight Haskell %}
+-- encode
+encode :: Int -> String -> String
+encode shift msg =
+    let ords = map ord msg
+        shifted = map (+shift) ords
+    in map chr shifted
+-- 给 map 传入 ord 函数，把 msg 转成对应的数字的 List
+-- 把转化后的 List 通过 map 对所有元素做 （+shift）操作
+-- 把最后做了（+shift）操作的数字 List 转成对应字符 List
+
+
+-- decode    
+decode :: Int -> String -> String
+decode shift msg = encode (negate shift) msg
+{% endhighlight %}
+
+将 **testModule.hs** 加载到 ghci 测试一下：
+
+{% highlight Haskell %}
+ghci>:l testModule.hs
+[1 of 1] Compiling Main             ( testModule.hs, interpreted )
+Ok, modules loaded: Main.
+
+ghci>:t encode
+encode :: Int -> String -> String
+
+ghci>encode 5 "a"
+"f"
+
+ghci>decode 5 "f"
+"a"
+
+ghci>ord 'a'
+97
+ghci>chr (97+5)
+'f'
+
+ghci>encode 5 "abcdef"
+"fghijk"
+
+ghci>decode 5 "fghijk"
+"abcdef"
+{% endhighlight %}
