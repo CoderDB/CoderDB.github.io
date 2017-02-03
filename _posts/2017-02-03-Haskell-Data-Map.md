@@ -85,3 +85,94 @@ fromList [(1,10),(2,20),(3,30)]
 -- 点是函数组合，别忘了！它和命令式语言中的点语法不一样哦🤓🤓🤓
 -- (f . g) x = f (g x)
 {% endhighlight %}
+
+> **null**
+
+检查一个 map 是否为空。
+
+{% highlight haskell %}
+ghci>:t Map.null
+Map.null :: Map k a -> Bool
+
+ghci>Map.null $ fromList [("Tom", "0001")]
+False
+
+ghci>Map.null Map.empty
+True
+
+ghci>Map.null $ fromList []
+True
+{% endhighlight %}
+
+> **size**
+
+返回一个 map 的大小。
+
+{% highlight haskell %}
+ghci>:t size
+size :: Map k a -> Int
+
+ghci>size empty
+0
+
+ghci>size $ fromList [("Tom", "0001")]
+1
+
+ghci>size $ fromList [("Tom", "0001"), ("Mary", "0005"), ("Danny", "01853"), ("Tom", "00345")]
+3
+{% endhighlight %}
+
+> **singleton**
+
+返回只含有一个键值对的 map 。
+
+{% highlight haskell %}
+ghci>:t singleton
+singleton :: k -> a -> Map k a
+
+ghci>:t Map.singleton
+Map.singleton :: k -> a -> Map k a
+
+ghci>singleton "Tom" "0001"
+fromList [("Tom","0001")]
+
+ghci>insert "Lucy" "0306" $ singleton "Tom" "0001"
+fromList [("Lucy","0306"),("Tom","0001")]
+{% endhighlight %}
+
+<h3>自己实现 fromList </h3>
+---
+
+在 **testDataMap.hs** 文件中，通过 **empty, insert, foldr** 函数编写自己的 *fromList'* 。
+
+{% highlight haskell %}
+-- fromList'
+fromList' :: (Ord k) => [(k, v)] -> Map.Map k v
+fromList' = foldr (\(k, v) acc -> Map.insert k v acc) Map.empty
+-- 不断向一个空的 map 中插入键值对
+-- 给 foldr 传入一个匿名函数和空 map
+-- 匿名函数向一个容器中插入键值对
+-- 容器初始值为空 map
+{% endhighlight %}
+
+再次加载 **testDataMap.hs** 文件，来试试它是否像 **fromList** 一样。
+
+{% highlight haskell %}
+ghci>:t fromList
+fromList         fromList'        fromListWith     fromListWithKey
+
+ghci>:t fromList'
+fromList' :: Ord k => [(k, v)] -> Map k v
+
+ghci>fromList' [("Tom", "0001"), ("Mary", "0005"), ("Danny", "01853")]
+fromList [("Danny","01853"),("Mary","0005"),("Tom","0001")]
+
+ghci>fromList' [("Tom", "0001"), ("Mary", "0005"), ("Danny", "01853"), ("Tom", "00345")]
+fromList [("Danny","01853"),("Mary","0005"),("Tom","0001")]
+
+ghci>fromList' [(2, "0001"), (80, "0005"), (3, "01853")]
+fromList [(2,"0001"),(3,"01853"),(80,"0005")]
+
+ghci>fromList' [(2, "0001"), (80, "0005"), (3, "01853"), (3, "")]
+fromList [(2,"0001"),(3,"01853"),(80,"0005")]
+{% endhighlight %}
