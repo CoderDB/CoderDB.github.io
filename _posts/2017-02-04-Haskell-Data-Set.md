@@ -121,3 +121,120 @@ fromList [1]
 ghci>Set.insert 2 $ Set.singleton 1
 fromList [1,2]
 {% endhighlight %}
+
+> **member**
+
+判断一个元素是否属于 Set 。
+
+{% highlight haskell %}
+ghci>:t Set.member
+Set.member :: Ord a => a -> Set.Set a -> Bool
+
+ghci>Set.member 1 $ Set.fromList [1..10]
+True
+
+ghci>Set.member 1 $ Set.fromList [10..20]
+False
+{% endhighlight %}
+
+> **delete**
+
+删除 Set 中的某一元素。
+
+{% highlight haskell %}
+ghci>:t Set.delete
+Set.delete :: Ord a => a -> Set.Set a -> Set.Set a
+
+ghci>Set.delete 1 $ Set.empty
+fromList []
+
+ghci>Set.delete 1 $ Set.fromList [1..10]
+fromList [2,3,4,5,6,7,8,9,10]
+
+ghci>Set.delete 1 $ Set.fromList [5..10]
+fromList [5,6,7,8,9,10]
+{% endhighlight %}
+
+> **map**
+
+与 Data.Map 中的 **map** 函数类似。
+
+{% highlight haskell %}
+ghci>:t Set.map
+Set.map :: Ord b => (a -> b) -> Set.Set a -> Set.Set b
+
+ghci>Set.map (+1) $ Set.fromList [1..10]
+fromList [2,3,4,5,6,7,8,9,10,11]
+
+ghci>Set.map toUpper $ Set.fromList ['a'..'z']
+fromList "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+{% endhighlight %}
+
+> **filter**
+
+与 Data.Map 中的 **filter** 函数类似。
+
+{% highlight haskell %}
+ghci>:t Set.filter
+Set.filter :: (a -> Bool) -> Set.Set a -> Set.Set a
+
+ghci>Set.filter (>6) $ Set.fromList [1..10]
+fromList [7,8,9,10]
+
+ghci>Set.filter isUpper $ Set.fromList ['A'..'z']
+fromList "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+{% endhighlight %}
+
+> **intersection**
+
+求两个 Set 的交集。
+
+{% highlight haskell %}
+ghci>:t Set.intersection
+Set.intersection :: Ord a => Set.Set a -> Set.Set a -> Set.Set a
+
+ghci>Set.intersection Set.empty Set.empty  
+fromList []
+
+ghci>let set1 = Set.fromList [1..10]
+ghci>let set2 = Set.fromList [5..20]
+ghci>Set.intersection set1 set2
+fromList [5,6,7,8,9,10]
+{% endhighlight %}
+
+> **union**
+
+求两个 Set 的并集。
+
+{% highlight haskell %}
+ghci>:t Set.union
+Set.union :: Ord a => Set.Set a -> Set.Set a -> Set.Set a
+
+ghci>Set.union set1 set2
+fromList [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
+{% endhighlight %}
+
+> **difference**
+
+求两个 Set 的差集。
+
+{% highlight haskell %}
+ghci>:t Set.difference
+Set.difference :: Ord a => Set.Set a -> Set.Set a -> Set.Set a
+
+ghci>set1
+fromList [1,2,3,4,5,6,7,8,9,10]
+ghci>set2
+fromList [5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
+
+ghci>Set.difference set1 set2
+fromList [1,2,3,4]
+-- 在 set1 不在 set2 的元素
+
+ghci>Set.difference set2 set1
+fromList [11,12,13,14,15,16,17,18,19,20]
+-- 在 set2 不在 set1 的元素
+
+ghci>Set.difference set2 set2
+fromList []
+{% endhighlight %}
