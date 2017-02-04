@@ -29,28 +29,28 @@ Ok, modules loaded: Main.
 
 > **fromList**
 
-取一个关联列表，返回一个去掉重复键并排序后的关联列表。
+取一个关联列表，返回一个去掉重复键并排序后的关联列表。 **List -> Map**
 
 {% highlight haskell %}
-ghci>:t fromList
-fromList :: Ord k => [(k, a)] -> Map k a
+ghci>:t Map.fromList
+Map.fromList :: Ord k => [(k, a)] -> Map.Map k a
 -- 键必须是可排序的
 
-ghci>fromList [("Tom", "0001"), ("Mary", "0005"), ("Danny", "01853")]
+ghci>Map.fromList[("Tom", "0001"), ("Mary", "0005"), ("Danny", "01853")]
 fromList [("Danny","01853"),("Mary","0005"),("Tom","0001")]
 -- 以键排序
 
-ghci>fromList [("Tom", "0001"), ("Mary", "0005"), ("Danny", "01853"), ("Tom", "00345")]
+ghci>Map.fromList [("Tom", "0001"), ("Mary", "0005"), ("Danny", "01853"), ("Tom", "00345")]
 fromList [("Danny","01853"),("Mary","0005"),("Tom","00345")]
 -- 去掉重复键，或者说键必须唯一，或者说同一键的值被覆盖
 
-ghci>fromList [("Tom", "0001"), ("Mary", "0005"), ("Danny", "01853"), ("Tom", "00345"), ("Tom", "98742")]
+ghci>Map.fromList [("Tom", "0001"), ("Mary", "0005"), ("Danny", "01853"), ("Tom", "00345"), ("Tom", "98742")]
 fromList [("Danny","01853"),("Mary","0005"),("Tom","98742")]
 
-ghci>fromList [(2, "0001"), (80, "0005"), (3, "01853")]
+ghci>Map.fromList [(2, "0001"), (80, "0005"), (3, "01853")]
 fromList [(2,"0001"),(3,"01853"),(80,"0005")]
 
-ghci>fromList [(2, "0001"), (80, "0005"), (3, "01853"), (3, "")]
+ghci>Map.fromList [(2, "0001"), (80, "0005"), (3, "01853"), (3, "")]
 fromList [(2,"0001"),(3,""),(80,"0005")]
 {% endhighlight %}
 
@@ -73,7 +73,7 @@ fromList [("Tom","0001")]
 ghci>Map.empty
 fromList []
 
-ghci>let userInfo = fromList [("Tom", "0001"), ("Mary", "0005"), ("Danny", "01853")]
+ghci>let userInfo = Map.fromList [("Tom", "0001"), ("Mary", "0005"), ("Danny", "01853")]
 ghci>userInfo
 fromList [("Danny","01853"),("Mary","0005"),("Tom","0001")]
 
@@ -92,61 +92,58 @@ fromList [(1,10),(2,20),(3,30)]
 
 > **null**
 
-检查一个 map 是否为空。
+检查一个 Map 是否为空。
 
 {% highlight haskell %}
 ghci>:t Map.null
 Map.null :: Map k a -> Bool
 
-ghci>Map.null $ fromList [("Tom", "0001")]
+ghci>Map.null $ Map.fromList [("Tom", "0001")]
 False
 
 ghci>Map.null Map.empty
 True
 
-ghci>Map.null $ fromList []
+ghci>Map.null $ Map.fromList []
 True
 {% endhighlight %}
 
 > **size**
 
-返回一个 map 的大小。
+返回一个 Map 的大小。
 
 {% highlight haskell %}
 ghci>:t size
 size :: Map k a -> Int
 
-ghci>size empty
+ghci>Map.size Map.empty
 0
 
-ghci>size $ fromList [("Tom", "0001")]
+ghci>Map.size $ Map.fromList [("Tom", "0001")]
 1
 
-ghci>size $ fromList [("Tom", "0001"), ("Mary", "0005"), ("Danny", "01853"), ("Tom", "00345")]
+ghci>Map.size $ Map.fromList [("Tom", "0001"), ("Mary", "0005"), ("Danny", "01853"), ("Tom", "00345")]
 3
 {% endhighlight %}
 
 > **singleton**
 
-返回只含有一个键值对的 map 。
+返回只含有一个键值对的 Map 。
 
 {% highlight haskell %}
-ghci>:t singleton
-singleton :: k -> a -> Map k a
-
 ghci>:t Map.singleton
-Map.singleton :: k -> a -> Map k a
+Map.singleton :: k -> a -> Map.Map k a
 
-ghci>singleton "Tom" "0001"
+ghci>Map.singleton "Tom" "0001"
 fromList [("Tom","0001")]
 
-ghci>insert "Lucy" "0306" $ singleton "Tom" "0001"
+ghci>Map.insert "Lucy" "0306" $ Map.singleton "Tom" "0001"
 fromList [("Lucy","0306"),("Tom","0001")]
 {% endhighlight %}
 
 > **lookup**
 
-通过一个给定的 key 在 map 中查找并返回一个 Maybe 值。
+通过一个给定的 key 在 Map 中查找并返回一个 Maybe 值。
 
 {% highlight haskell %}
 ghci>:t Map.lookup
@@ -164,7 +161,7 @@ Just "first"
 
 > **member**
 
-判断一个给定的键是否在一个 map 中，相应的返回一个 Bool 值。
+判断一个给定的键是否在一个 Map 中，相应的返回一个 Bool 值。
 
 {% highlight haskell %}
 ghci>:t Map.member
