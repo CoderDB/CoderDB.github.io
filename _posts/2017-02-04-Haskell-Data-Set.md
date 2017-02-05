@@ -276,6 +276,92 @@ ghci>Set.elems $ Set.insert "Haskell" $ Set.singleton "Hello"
 ["Haskell","Hello"]
 {% endhighlight %}
 
+> **split**
+
+把 Set 在给定元素处劈成两截，返回装着这两截的元组。
+
+{% highlight haskell %}
+ghci>:t Set.split
+Set.split :: Ord a => a -> Set.Set a -> (Set.Set a, Set.Set a)
+
+ghci>Set.split 20 set
+(fromList [10,11,12,13,14,15,16,17,18,19],fromList [21,22,23,24,25,26,27,28,29,30])
+
+ghci>Set.split 15 $ fst $ Set.split 20 set
+(fromList [10,11,12,13,14],fromList [16,17,18,19])
+
+ghci>Set.elems $ snd $ Set.split 15 $ fst $ Set.split 20 set
+[16,17,18,19]
+{% endhighlight %}
+
+> **splitMember**
+
+把 Set 在给定元素处劈成三截，并把该元素替换为一个 **Bool** 值，返回一个三元组。像是把 **split, member** 合起来一样。
+
+{% highlight haskell %}
+Set.splitMember
+  :: Ord a => a -> Set.Set a -> (Set.Set a, Bool, Set.Set a)
+
+ghci>Set.splitMember 20 set
+(fromList [10,11,12,13,14,15,16,17,18,19],True,fromList [21,22,23,24,25,26,27,28,29,30])
+-- 在 20 处劈开，替换为 Bool
+
+ghci>Set.splitMember 0 set
+(fromList [],False,fromList [10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30])
+
+ghci>Set.splitMember 2 $ Set.insert 5 $ Set.singleton 2
+(fromList [],True,fromList [5])
+
+ghci>Set.splitMember 'a' $ Set.insert 'b' $ Set.insert 'c' $ Set.singleton 'd'
+(fromList "",False,fromList "bcd")
+{% endhighlight %}
+
+> **lookupGE**
+
+在 Set 中查找 *大于或等于* 给定值的元素，返回一个 **Maybe** 值。GE = greater or equal
+
+{% highlight haskell %}
+ghci>:t Set.lookupGE
+Set.lookupGE :: Ord a => a -> Set.Set a -> Maybe a
+
+ghci>set
+fromList [10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30]
+
+ghci>Set.lookupGE 20 set
+Just 20
+
+ghci>Set.lookupGE 0 set
+Just 10
+
+ghci>Set.lookupGE 31 set
+Nothing
+{% endhighlight %}
+
+> **lookupGT**
+
+在 Set 中查找 *大于* 给定值的元素，返回一个 **Maybe** 值。
+
+{% highlight haskell %}
+ghci>:t Set.lookupGT
+Set.lookupGT :: Ord a => a -> Set.Set a -> Maybe a
+
+ghci>Set.lookupGT 20 set
+Just 21
+
+ghci>Set.lookupGT 0 set
+Just 10
+
+ghci>Set.lookupGT 30 set
+Nothing
+
+ghci>Set.lookupGT 'f' $ Set.fromList "Haskell"
+Just 'k'
+
+ghci>Set.lookupGT 'z' $ Set.fromList "Haskell"
+Nothing
+{% endhighlight %}
+
+
 > **map**
 
 与 Data.Map 中的 **map** 函数类似。
