@@ -137,6 +137,21 @@ ghci>Set.member 1 $ Set.fromList [10..20]
 False
 {% endhighlight %}
 
+> **notMember**
+
+判断一个元素是否属于 Set 。
+
+{% highlight haskell %}
+ghci>:t Set.notMember
+Set.notMember :: Ord a => a -> Set.Set a -> Bool
+
+ghci>Set.notMember 1 $ Set.fromList [1..10]
+False
+
+ghci>Set.notMember 1 $ Set.fromList [10..20]
+True
+{% endhighlight %}
+
 > **delete**
 
 删除 Set 中的某一元素。
@@ -318,7 +333,7 @@ ghci>Set.splitMember 'a' $ Set.insert 'b' $ Set.insert 'c' $ Set.singleton 'd'
 
 > **lookupGE**
 
-在 Set 中查找 *大于或等于* 给定值的元素，返回一个 **Maybe** 值。GE = greater or equal
+在 Set 中查找 *大于或等于* 给定值的元素，返回一个 **Maybe** 值。 GE = greater or equal
 
 {% highlight haskell %}
 ghci>:t Set.lookupGE
@@ -339,7 +354,7 @@ Nothing
 
 > **lookupGT**
 
-在 Set 中查找 *大于* 给定值的元素，返回一个 **Maybe** 值。
+在 Set 中查找 *大于* 给定值的元素，返回一个 **Maybe** 值。 GT = greater than
 
 {% highlight haskell %}
 ghci>:t Set.lookupGT
@@ -361,6 +376,116 @@ ghci>Set.lookupGT 'z' $ Set.fromList "Haskell"
 Nothing
 {% endhighlight %}
 
+> **lookupLE**
+
+在 Set 中查询 *小于等于* 给定值的元素，返回一个 **Maybe** 值。 LE = less or equal
+
+{% highlight haskell %}
+ghci>:t Set.lookupLE
+Set.lookupLE :: Ord a => a -> Set.Set a -> Maybe a
+
+ghci>Set.lookupLE 20 set
+Just 20
+
+ghci>Set.lookupLE 0 set
+Nothing
+
+ghci>Set.lookupLE 10 set
+Just 10
+
+ghci>Set.lookupLE 31 set
+Just 30
+{% endhighlight %}
+
+> **lookupLT**
+
+在 Set 中查询 *小于* 给定值的元素，返回一个 **Maybe** 值。 LT = less than
+
+{% highlight haskell %}
+ghci>:t Set.lookupLT
+Set.lookupLT :: Ord a => a -> Set.Set a -> Maybe a
+
+ghci>Set.lookupLT 20 set
+Just 19
+
+ghci>Set.lookupLT 0 set
+Nothing
+
+ghci>Set.lookupLT 10 set
+Nothing
+
+ghci>Set.lookupLT 30 set
+Just 29
+
+ghci>Set.lookupLT 'f' $ Set.fromList "Haskell"
+Just 'e'
+
+ghci>Set.lookupLT 'a' $ Set.fromList "Haskell"
+Just 'H'
+{% endhighlight %}
+
+> **lookupIndex**
+
+在 Set 中查询给定元素的下标，返回一个 **Maybe** 值。
+
+{% highlight haskell %}
+ghci>:t Set.lookupIndex
+Set.lookupIndex :: Ord a => a -> Set.Set a -> Maybe Int
+
+ghci>Set.lookupIndex 20 set
+Just 10
+
+ghci>Set.lookupIndex 0 set
+Nothing
+
+ghci>Set.lookupIndex 30 set
+Just 20
+
+ghci>Set.lookupIndex 'e' $ Set.fromList "Haskell"
+Just 2
+
+ghci>Set.lookupIndex 'l' $ Set.fromList "Haskell"
+Just 4
+
+ghci>Set.lookupIndex 's' $ Set.fromList "Haskell"
+Just 5
+{% endhighlight %}
+
+> **maxView**
+
+找出 Set 中最大值并从 Set 中取出与剩下的元素组成元组返回。
+
+{% highlight haskell %}
+ghci>:t Set.maxView
+Set.maxView :: Set.Set a -> Maybe (a, Set.Set a)
+
+ghci>Set.maxView set
+Just (30,fromList [10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29])
+
+ghci>Set.maxView $ Set.fromList "Haskell"
+Just ('s',fromList "Haekl")
+
+ghci>Set.maxView Set.empty
+Nothing
+{% endhighlight %}
+
+> **minView**
+
+找出 Set 中最小值并从 Set 中取出与剩下的元素组成元组返回。
+
+{% highlight haskell %}
+ghci>:t Set.minView
+Set.minView :: Set.Set a -> Maybe (a, Set.Set a)
+
+ghci>Set.minView set
+Just (10,fromList [11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30])
+
+ghci>Set.minView $ Set.fromList "Haskell"
+Just ('H',fromList "aekls")
+
+ghci>Set.minView Set.empty
+Nothing
+{% endhighlight %}
 
 > **map**
 
