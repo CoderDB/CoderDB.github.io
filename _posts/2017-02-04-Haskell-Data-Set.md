@@ -155,6 +155,127 @@ ghci>Set.delete 1 $ Set.fromList [5..10]
 fromList [5,6,7,8,9,10]
 {% endhighlight %}
 
+> **deleteAt**
+
+删除指定下标处的元素。
+
+{% highlight haskell %}
+ghci>:t Set.deleteAt
+Set.deleteAt :: Int -> Set.Set a -> Set.Set a
+
+ghci>let set = Set.fromList [10..30]
+
+ghci>set
+fromList [10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30]
+
+ghci>Set.deleteAt 0 set
+fromList [11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30]
+
+ghci>Set.deleteAt (Set.size set - 1) set
+fromList [10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29]
+{% endhighlight %}
+
+> **deleteMax**
+
+删除 Set 中最大的元素，返回剩下的 Set 。
+
+{% highlight haskell %}
+ghci>:t Set.deleteMax
+Set.deleteMax :: Set.Set a -> Set.Set a
+
+ghci>Set.deleteMax set
+fromList [10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29]
+
+ghci>Set.deleteMax $ Set.fromList [1..5]
+fromList [1,2,3,4]
+{% endhighlight %}
+
+> **deleteMin**
+
+删除 Set 中最小的元素，返回剩下的 Set 。
+
+{% highlight haskell %}
+ghci>:t Set.deleteMin
+Set.deleteMin :: Set.Set a -> Set.Set a
+
+ghci>Set.deleteMin set
+fromList [11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30]
+
+ghci>Set.deleteMin $ Set.fromList [1..5]
+fromList [2,3,4,5]
+{% endhighlight %}
+
+
+
+> **deleteFindMax**
+
+找出 Set 中最大的元素并从原 Set 删除，返回一个元组，包含被删除的最大元素与剩余元素的 Set 。
+
+{% highlight haskell %}
+ghci>:t Set.deleteFindMax
+Set.deleteFindMax :: Set.Set a -> (a, Set.Set a)
+
+ghci>Set.deleteFindMax set
+(30,fromList [10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29])
+
+ghci>Set.deleteFindMax $ Set.fromList [1..5]
+(5,fromList [1,2,3,4])
+
+ghci>Set.deleteFindMax $ Set.insert 10 $ Set.insert 20 $ Set.singleton 5
+(20,fromList [5,10])
+{% endhighlight %}
+
+> **deleteFindMin**
+
+找出 Set 中最小的元素并从原 Set 删除，返回一个元组，包含被删除的最小元素与剩余元素的 Set 。
+
+{% highlight haskell %}
+ghci>:t Set.deleteFindMin
+Set.deleteFindMin :: Set.Set a -> (a, Set.Set a)
+
+ghci>Set.deleteFindMin set
+(10,fromList [11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30])
+
+ghci>Set.deleteFindMin $ Set.fromList [1..5]
+(1,fromList [2,3,4,5])
+{% endhighlight %}
+
+> **elemAt**
+
+返回 Set 中给定下标处的元素。
+
+{% highlight haskell %}
+ghci>:t Set.elemAt
+Set.elemAt :: Int -> Set.Set a -> a
+
+ghci>Set.elemAt 0 set
+10
+
+ghci>Set.elemAt 5 $ Set.fromList "Haskell"
+'s'
+
+ghci>Set.elemAt 0 $ Set.insert "Haskell" $ Set.singleton "Hello"
+"Haskell"
+{% endhighlight %}
+
+> **elems**
+
+返回 Set 所有元素。 **Set -> List**
+
+{% highlight haskell %}
+ghci>:t Set.elems
+Set.elems :: Set.Set a -> [a]
+
+ghci>Set.elems set
+[10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30]
+
+ghci>Set.elems $ Set.fromList "Haskell"
+"Haekls"
+
+ghci>Set.elems $ Set.insert "Haskell" $ Set.singleton "Hello"
+["Haskell","Hello"]
+{% endhighlight %}
+
 > **map**
 
 与 Data.Map 中的 **map** 函数类似。
@@ -237,4 +358,56 @@ fromList [11,12,13,14,15,16,17,18,19,20]
 
 ghci>Set.difference set2 set2
 fromList []
+{% endhighlight %}
+
+> **isSubsetOf**
+
+判断 Set1 是不是 Set2 的子集。
+
+{% highlight haskell %}
+ghci>:t Set.isSubsetOf
+Set.isSubsetOf :: Ord a => Set.Set a -> Set.Set a -> Bool
+
+ghci>Set.isSubsetOf set1 set2
+False
+-- set1 = fromList [1,2,3,4,5,6,7,8,9,10]
+-- set2 = fromList [5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
+
+ghci>let set3 = Set.fromList [5..15]
+
+ghci>Set.isSubsetOf set3 set2
+True
+
+ghci>set2 `Set.isSubsetOf` set3
+False
+-- 以中缀函数调用
+
+ghci>Set.isSubsetOf Set.empty set1
+True
+
+ghci>Set.isSubsetOf Set.empty Set.empty
+True
+-- 空集是任意集合的子集
+{% endhighlight %}
+
+> **isProperSubsetOf**
+
+判断 Set1 是不是 Set2 的真子集。
+
+{% highlight haskell %}
+ghci>:t Set.isProperSubsetOf
+Set.isProperSubsetOf :: Ord a => Set.Set a -> Set.Set a -> Bool
+
+ghci>Set.isProperSubsetOf set3 set2
+True
+
+ghci>Set.isProperSubsetOf set3 set3
+False
+-- 真子集：A 包含于 B 且 A 不等于 B ，或者说 B 集合的元素一定比 A 集合元素多
+
+ghci>Set.empty `Set.isProperSubsetOf` Set.empty
+False
+
+ghci>Set.isProperSubsetOf Set.empty set1
+True
 {% endhighlight %}
