@@ -141,6 +141,63 @@ ghci>Map.insert "Lucy" "0306" $ Map.singleton "Tom" "0001"
 fromList [("Lucy","0306"),("Tom","0001")]
 {% endhighlight %}
 
+> **delete**
+
+删除 Map 中指定 key 处的元素。
+
+{% highlight haskell %}
+ghci>:t Map.delete
+Map.delete :: Ord k => k -> Map.Map k a -> Map.Map k a
+
+ghci>Map.delete 1 $ Map.fromList [(1, 'a'), (2, 'b'), (3, 'c')]
+fromList [(2,'b'),(3,'c')]
+
+ghci>Map.delete 5 $ Map.fromList [(1, 'a'), (2, 'b'), (3, 'c')]
+fromList [(1,'a'),(2,'b'),(3,'c')]
+
+ghci>Map.delete "Tom" $ Map.insert "Tom" 98 $ Map.singleton "Jerry" 100
+fromList [("Jerry",100)]
+{% endhighlight %}
+
+> **deleteAt**
+
+删除 Map 中指定下标处的元素。
+
+{% highlight haskell %}
+ghci>:t Map.deleteAt
+Map.deleteAt :: Int -> Map.Map k a -> Map.Map k a
+
+ghci>Map.deleteAt 1 $ Map.fromList [(1, 'a'), (2, 'b'), (3, 'c')]
+fromList [(1,'a'),(3,'c')]
+
+ghci>Map.deleteAt 5 $ Map.fromList [(1, 'a'), (2, 'b'), (3, 'c')]
+fromList *** Exception: Map.deleteAt: index out of range
+
+ghci>Map.deleteAt 1 $ Map.insert "Tom" 98 $ Map.singleton "Jerry" 100
+fromList [("Jerry",100)]
+{% endhighlight %}
+
+> **deleteMax**
+
+删除 Map 中 key 最大的元素。
+
+{% highlight haskell %}
+ghci>:t Map.deleteMax
+Map.deleteMax :: Map.Map k a -> Map.Map k a
+
+ghci>Map.deleteMax $ Map.fromList [(1, 'a'), (2, 'b'), (3, 'c')]
+fromList [(1,'a'),(2,'b')]
+
+ghci>Map.deleteMax $ Map.fromList [(1, 'a'), (20, 'b'), (3, 'c')]
+fromList [(1,'a'),(3,'c')]
+
+ghci>Map.deleteMax $ Map.fromList [("aaa", "aaa"), ("aab", "aab"), ("aac", "aac")]
+fromList [("aaa","aaa"),("aab","aab")]
+
+ghci>Map.deleteMax $ Map.fromList [("aaa", "aaa"), ("z", "aab"), ("aac", "aac")]
+fromList [("aaa","aaa"),("aac","aac")]
+{% endhighlight %}
+
 > **lookup**
 
 通过一个给定的 key 在 Map 中查找并返回一个 Maybe 值。
@@ -256,11 +313,32 @@ Just ('c',40)
 ghci>Map.lookupLT 10 $ Map.fromList [(1, 2), (2, 3), (5, 6), (11, 12)]
 Just (5,6)
 
-ghci>Map.lookupLT "T" $ Map.fromList [("Tom", "0001"), ("Mary", "0005"), ("Danny", "01853")]
+ghci>Map.lookupLT "Tom" $ Map.fromList [("Tom", "0001"), ("Mary", "0005"), ("Danny", "01853")]
 Just ("Mary","0005")
 
-ghci>Map.lookupLE "A" $ Map.fromList [("Tom", "0001"), ("Mary", "0005"), ("Danny", "01853")]
+ghci>Map.lookupLT "A" $ Map.fromList [("Tom", "0001"), ("Mary", "0005"), ("Danny", "01853")]
 Nothing
+{% endhighlight %}
+
+> **lookupIndex**
+
+在 Map 中查找给定 key 元素的下标。
+
+{% highlight haskell %}
+ghci>:t Map.lookupIndex
+Map.lookupIndex :: Ord k => k -> Map.Map k a -> Maybe Int
+
+ghci>map
+fromList [('a',20),('b',30),('c',40)]
+
+ghci>Map.lookupIndex 'a' map
+Just 0
+
+ghci>Map.lookupIndex 'd' map
+Nothing
+
+ghci>Map.lookupIndex "Tom" $ Map.fromList [("Tom", "0001"), ("Mary", "0005"), ("Danny", "01853")]
+Just 2
 {% endhighlight %}
 
 > **member**
@@ -362,11 +440,51 @@ ghci>Map.keys $ Map.fromList [("Tom", 98), ("Lucy", 89), ("", 20)]
 ghci>:t Map.elems
 Map.elems :: Map.Map k a -> [a]
 
-ghci>Map.elems $ Map.fromList [("Tom", 98), ("Lucy", 89), ("Jerry", 20)]
+ghci>Map.elems 2 $ Map.fromList [("Tom", 98), ("Lucy", 89), ("Jerry", 20)]
 [20,89,98]
 
 ghci>Map.elems $ Map.insert 1 "first" $ Map.singleton 2 "second"
 ["first","second"]
+{% endhighlight %}
+
+> **elemAt**
+
+返回一个 Map 中指定下标处的值。
+
+{% highlight haskell %}
+ghci>:t Map.elemAt
+Map.elemAt :: Int -> Map.Map k a -> (k, a)
+
+ghci>map
+fromList [('a',20),('b',30),('c',40)]
+
+ghci>Map.elemAt 0 map
+('a',20)
+
+ghci>Map.elemAt 10 map
+*** Exception: Map.elemAt: index out of range
+
+ghci>Map.elemAt 1 $ Map.insert 1 "first" $ Map.singleton 2 "second"
+(2,"second")
+
+ghci>Map.elemAt 2 $ Map.fromList [("Tom", 98), ("Lucy", 89), ("Jerry", 20)]
+("Tom",98)
+{% endhighlight %}
+
+> **adjust**
+
+对 Map 中指定 key 处的 value 做函数操作。
+
+{% highlight haskell %}
+ghci>:t Map.adjust
+Map.adjust :: Ord k => (a -> a) -> k -> Map.Map k a -> Map.Map k a
+
+ghci>Map.adjust (+1) 1 $ Map.fromList [(1, 2), (2, 3)]
+fromList [(1,3),(2,3)]
+-- 对 key 为 1 的值做 +1 操作
+
+ghci>Map.adjust toUpper 2 $ Map.fromList [(1, 'a'), (2, 'b'), (3, 'c')]
+fromList [(1,'a'),(2,'B'),(3,'c')]
 {% endhighlight %}
 
 > **fromListWith**
