@@ -159,6 +159,110 @@ ghci>Map.lookup 1 $ Map.singleton 1 "first"
 Just "first"
 {% endhighlight %}
 
+> **lookupGE**
+
+在 Map 中查找 *大于等于* 给定 key 的元素，返回一个 Maybe 值。 GE = greater or equal
+
+{% highlight haskell %}
+ghci>:t Map.lookupGE
+Map.lookupGE :: Ord k => k -> Map.Map k v -> Maybe (k, v)
+
+ghci>let map = Map.fromList [('a', 20), ('b', 30), ('c', 40)]
+
+ghci>Map.lookupGE 'a' map
+Just ('a',20)
+
+ghci>Map.lookupGE 'd' map
+Nothing
+
+ghci>Map.lookupGE 10 $ Map.fromList [(1, 2), (2, 3), (5, 6), (11, 12)]
+Just (11,12)
+
+ghci>Map.lookupGE "T" $ Map.fromList [("Tom", "0001"), ("Mary", "0005"), ("Danny", "01853")]
+Just ("Tom","0001")
+{% endhighlight %}
+
+> **lookupGT**
+
+在 Map 中查找 *大于* 给定 key 的元素，返回一个 Maybe 值。 GE = greater than
+
+{% highlight haskell %}
+ghci>:t Map.lookupGT
+Map.lookupGT :: Ord k => k -> Map.Map k v -> Maybe (k, v)
+
+ghci>map
+fromList [('a',20),('b',30),('c',40)]
+
+ghci>Map.lookupGT 'a' map
+Just ('b',30)
+
+ghci>Map.lookupGT 'd' map
+Nothing
+
+ghci>Map.lookupGT 10 $ Map.fromList [(1, 2), (2, 3), (5, 6), (11, 12)]
+Just (11,12)
+
+ghci>Map.lookupGT "T" $ Map.fromList [("Tom", "0001"), ("Mary", "0005"), ("Danny", "01853")]
+Just ("Tom","0001")
+
+ghci>Map.lookupGT "Tom" $ Map.fromList [("Tom", "0001"), ("Mary", "0005"), ("Danny", "01853")]
+Nothing
+{% endhighlight %}
+
+> **lookupLE**
+
+在 Map 中查找 *小于等于* 给定 key 的元素，返回一个 Maybe 值。 GE = less or erual
+
+{% highlight haskell %}
+ghci>:t Map.lookupLE
+Map.lookupLE :: Ord k => k -> Map.Map k v -> Maybe (k, v)
+
+ghci>map
+fromList [('a',20),('b',30),('c',40)]
+
+ghci>Map.lookupLE 'a' map
+Just ('a',20)
+
+ghci>Map.lookupLE 'd' map
+Just ('c',40)
+
+ghci>Map.lookupLE 10 $ Map.fromList [(1, 2), (2, 3), (5, 6), (11, 12)]
+Just (5,6)
+
+ghci>Map.lookupLE "T" $ Map.fromList [("Tom", "0001"), ("Mary", "0005"), ("Danny", "01853")]
+Just ("Mary","0005")
+
+ghci>Map.lookupLE "A" $ Map.fromList [("Tom", "0001"), ("Mary", "0005"), ("Danny", "01853")]
+Nothing
+{% endhighlight %}
+
+> **lookupLT**
+
+在 Map 中查找 *小于* 给定 key 的元素，返回一个 Maybe 值。 GE = less than
+
+{% highlight haskell %}
+ghci>:t Map.lookupLT
+Map.lookupLT :: Ord k => k -> Map.Map k v -> Maybe (k, v)
+
+ghci>map
+fromList [('a',20),('b',30),('c',40)]
+
+ghci>Map.lookupLT 'a' map
+Nothing
+
+ghci>Map.lookupLT 'd' map
+Just ('c',40)
+
+ghci>Map.lookupLT 10 $ Map.fromList [(1, 2), (2, 3), (5, 6), (11, 12)]
+Just (5,6)
+
+ghci>Map.lookupLT "T" $ Map.fromList [("Tom", "0001"), ("Mary", "0005"), ("Danny", "01853")]
+Just ("Mary","0005")
+
+ghci>Map.lookupLE "A" $ Map.fromList [("Tom", "0001"), ("Mary", "0005"), ("Danny", "01853")]
+Nothing
+{% endhighlight %}
+
 > **member**
 
 判断一个给定的键是否在一个 Map 中，相应的返回一个 Bool 值。
@@ -172,6 +276,21 @@ False
 
 ghci>Map.member "Tom" $ Map.fromList [("Tom", "0001"), ("Mary", "0005"), ("Danny", "01853")]
 True
+{% endhighlight %}
+
+> **notMember**
+
+同上 😂😂😂😂😂😂
+
+{% highlight haskell %}
+ghci>:t Map.notMember
+Map.notMember :: Ord k => k -> Map.Map k a -> Bool
+
+ghci>Map.notMember "Lucy" $ Map.fromList [("Tom", "0001"), ("Mary", "0005"), ("Danny", "01853")]
+True
+
+ghci>Map.notMember "Tom" $ Map.fromList [("Tom", "0001"), ("Mary", "0005"), ("Danny", "01853")]
+False
 {% endhighlight %}
 
 > **map**
