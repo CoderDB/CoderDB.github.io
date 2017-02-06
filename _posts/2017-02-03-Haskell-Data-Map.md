@@ -198,6 +198,126 @@ ghci>Map.deleteMax $ Map.fromList [("aaa", "aaa"), ("z", "aab"), ("aac", "aac")]
 fromList [("aaa","aaa"),("aac","aac")]
 {% endhighlight %}
 
+> **deleteMin**
+
+删除 Map 中 key 最小的元素。
+
+{% highlight haskell %}
+ghci>:t Map.deleteMin
+Map.deleteMin :: Map.Map k a -> Map.Map k a
+
+ghci>Map.deleteMin  $ Map.fromList [(1, 'a'), (2, 'b'), (3, 'c')]
+fromList [(2,'b'),(3,'c')]
+
+ghci>Map.deleteMin  $ Map.fromList [(1, 'a'), (-2, 'b'), (3, 'c')]
+fromList [(1,'a'),(3,'c')]
+
+ghci>Map.deleteMin $ Map.fromList [("aaa", "aaa"), ("aab", "aab"), ("aac", "aac")]
+fromList [("aab","aab"),("aac","aac")]
+
+ghci>Map.deleteMin $ Map.fromList [("A", "aaa"), ("aab", "aab"), ("aac", "aac")]
+fromList [("aab","aab"),("aac","aac")]
+{% endhighlight %}
+
+> **deleteFindMax**
+
+找出 Map 中最大的 key 对应的元素并从原 Map 中删除，返回最大 key 元素与剩下的 Map 组成的元组。
+
+{% highlight haskell %}
+ghci>:t Map.deleteFindMax
+Map.deleteFindMax :: Map.Map k a -> ((k, a), Map.Map k a)
+
+ghci>Map.deleteFindMax $ Map.fromList [(1, 'a'), (2, 'b'), (3, 'c')]
+((3,'c'),fromList [(1,'a'),(2,'b')])
+
+ghci>Map.deleteFindMax $ Map.fromList [("aaa", "aaa"), ("aab", "aab"), ("aac", "aac")]
+(("aac","aac"),fromList [("aaa","aaa"),("aab","aab")])
+{% endhighlight %}
+
+
+> **deleteFindMin**
+
+找出 Map 中最小的 key 对应的元素并从原 Map 中删除，返回最大 key 元素与剩下的 Map 组成的元组。
+
+{% highlight haskell %}
+ghci>:t Map.deleteFindMin
+Map.deleteFindMin :: Map.Map k a -> ((k, a), Map.Map k a)
+
+ghci>Map.deleteFindMin $ Map.fromList [(1, 'a'), (2, 'b'), (3, 'c')]
+((1,'a'),fromList [(2,'b'),(3,'c')])
+
+ghci>Map.deleteFindMin $ Map.fromList [("aaa", "aaa"), ("aab", "aab"), ("aac", "aac")]
+(("aaa","aaa"),fromList [("aab","aab"),("aac","aac")])
+{% endhighlight %}
+
+> **findIndex**
+
+找出 Map 中给定 key 处元素的下标。
+
+{% highlight haskell %}
+ghci>:t Map.findIndex
+Map.findIndex :: Ord k => k -> Map.Map k a -> Int
+
+ghci>Map.findIndex "Tom" $ Map.fromList [("Tom", "Beijing"), ("Jerry", "Shanghai"), ("Dom", "Shenzhen")]
+2
+
+let test = Map.fromList [("Tom", "Beijing"), ("Jerry", "Shanghai"), ("Dom", "Shenzhen")]
+ghci>Map.deleteAt (Map.findIndex "Tom" test) test
+fromList [("Dom","Shenzhen"),("Jerry","Shanghai")]
+{% endhighlight %}
+
+> **findMax**
+
+找出 Map 中最大 key 处的元素。
+
+{% highlight haskell %}
+ghci>:t Map.findMax
+Map.findMax :: Map.Map k a -> (k, a)
+
+ghci>Map.findMax test
+("Tom","Beijing")
+
+ghci>Map.findMax $ Map.fromList [(1, 2), (10, 20), (100, 200)]
+(100,200)
+
+ghci>Map.findMax $ Map.empty
+*** Exception: Map.findMax: empty map has no maximal element
+{% endhighlight %}
+
+> **findMin**
+
+找出 Map 中最小 key 处的元素。
+
+{% highlight haskell %}
+ghci>:t Map.findMin
+Map.findMin :: Map.Map k a -> (k, a)
+
+ghci>Map.findMin test
+("Dom","Shenzhen")
+
+ghci>Map.findMin $ Map.fromList [(1, 2), (10, 20), (100, 200)]
+(1,2)
+
+ghci>Map.findMin $ Map.fromList []
+*** Exception: Map.findMin: empty map has no minimal element
+{% endhighlight %}
+
+> **findWithDefault**
+
+返回 Map 中给定 key 处的元素，如果找不到这个 key 就返回一个给定的默认值。
+
+{% highlight haskell %}
+ghci>:t Map.findWithDefault
+Map.findWithDefault :: Ord k => a -> k -> Map.Map k a -> a
+
+ghci>Map.findWithDefault 100 1 $ Map.fromList [(1, 10), (2, 20), (3, 30)]
+10
+
+ghci>Map.findWithDefault 100 0 $ Map.fromList [(1, 10), (2, 20), (3, 30)]
+100
+-- 没有找到 key 为 0 的元素，所以返回默认值
+{% endhighlight %}
+
 > **lookup**
 
 通过一个给定的 key 在 Map 中查找并返回一个 Maybe 值。
