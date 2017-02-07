@@ -607,6 +607,28 @@ ghci>Map.adjust toUpper 2 $ Map.fromList [(1, 'a'), (2, 'b'), (3, 'c')]
 fromList [(1,'a'),(2,'B'),(3,'c')]
 {% endhighlight %}
 
+> **partition**
+
+通过一个条件作用在 Map 中的 value 上将 Map 分割为两部分以元组形式返回。
+
+{% highlight haskell %}
+ghci>:t Map.partition
+Map.partition
+  :: (a -> Bool) -> Map.Map k a -> (Map.Map k a, Map.Map k a)
+
+ghci>Map.partition (>5) $ Map.fromList [(1, 2), (2,6)]
+(fromList [(2,6)],fromList [(1,2)])
+
+ghci>Map.partition (>5) $ Map.fromList [(1, 2), (2,6), (0, 10)]
+(fromList [(0,10),(2,6)],fromList [(1,2)])
+
+ghci>Map.partition isUpper $ Map.fromList [(1, 'a'), (2, 'b'), (3, 'c')]
+(fromList [],fromList [(1,'a'),(2,'b'),(3,'c')])
+
+ghci>Map.partition isUpper $ Map.fromList [(1, 'a'), (2, 'b'), (3, 'C')]
+(fromList [(3,'C')],fromList [(1,'a'),(2,'b')])
+{% endhighlight %}
+
 > **fromListWith**
 
 返回一个 *关联列表* 中重复键被函数作用后生成的 Map 。
