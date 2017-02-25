@@ -21,4 +21,4 @@ layout.sectionFootersPinToVisibleBounds = true
 
 再也不用像以前一样自定义 layout 写一大堆代码，算个不停了！🤣🤣🤣🤣🤣🤣🤣🤣🤣
 
-上面gif是项目中稍微修改后做的，这里是临时写的一个简单的 [Demo](https://github.com/redtwowolf/redtwowolf.github.io/blob/master/_code/Swift/UICollectionViewHoverHeaderFooter)。
+上面gif是项目中稍微修改后做的，这里是临时写的一个简单的 [Demo](https://github.com/redtwowolf/CollectionViewHoverHeaderFooter)。
