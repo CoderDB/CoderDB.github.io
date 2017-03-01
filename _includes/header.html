@@ -1,4 +1,23 @@
 <header class="site-header">
+	<script>
+(function (doc, win) {
+        var docEl = doc.documentElement,
+            resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+            recalc = function () {
+                var clientWidth = docEl.clientWidth;
+                if (!clientWidth) return;
+                if(clientWidth>=640){
+                    docEl.style.fontSize = '15px';
+                }else{
+                    docEl.style.fontSize = '8px';
+                }
+            };
+
+        if (!doc.addEventListener) return;
+        win.addEventListener(resizeEvt, recalc, false);
+        doc.addEventListener('DOMContentLoaded', recalc, false);
+    })(document, window);
+</script>
 	<div class="branding">
 		{% if site.theme_settings.gravatar %}
 		<a href="{{ site.baseurl }}/">
