@@ -72,10 +72,36 @@ xiaoming = nil
 ### unowned
 ---
 
-**weak** 我们已经很熟悉了，因为写 OC 时时时刻刻都在用它，而 **unowned** 是 Swift 中的关键字，那么 **unowned** 与 **weak** 有什么区别？首先 **unowned** 不能像 **weak** 一样在声明属性变量时限制它像这样:
+**weak** 我们已经很熟悉了，因为写 OC 时时时刻刻都在用它，而 **unowned** 是 Swift 中的关键字，将上述例子中 **weak** 改为 **unowned** 会是什么结果呢？
 
 {% highlight swift %}
-unowned var delegate: SomeProtocol?
+class Person {
+    var teddy: Dog?
+    deinit {
+        print("person deinit")
+    }
+}
+
+class Dog {
+    unowned let master: Person
+    init(master: Person) {
+        self.master = master
+    }
+    deinit {
+        print("dog deinit")
+    }
+}
+
+var xiaoming: Person? = Person()
+xiaoming!.teddy = Dog(master: xiaoming!)
+
+xiaoming = nil
+
+// person deinit
+// dog deinit
 {% endhighlight %}
 
- 在 OC 中频繁用到 **weak** 的地方就是拥有一个 delegate 属性时
+对上述例子稍作了一点修改，不难看出 **deinit** 方法被调用的原理与上面使用 **weak** 是一样的，两条强引用中其中一条标记为 **unowned** ，这样打破了循环引用，所以当 *xiaoming* 被置为 **nil** 时，所有变量得以释放。
+
+### unowned 与 weak 有什么区别呢？
+---
