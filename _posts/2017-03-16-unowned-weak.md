@@ -15,7 +15,6 @@ feature-img: "img/blue.jpg"
 {% highlight swift %}
 class Person {
     let teddy: Dog
-
     init() {
         teddy = Dog()
         teddy.master = self
@@ -27,7 +26,6 @@ class Person {
 
 class Dog {
     var master: Person?
-
     deinit {
         print("dog deinit")
     }
@@ -49,7 +47,6 @@ xiaoming = nil
 {% highlight swift %}
 class Dog {
     weak var master: Person?
-
     deinit {
         print("dog deinit")
     }
@@ -103,5 +100,38 @@ xiaoming = nil
 
 对上述例子稍作了一点修改，不难看出 **deinit** 方法被调用的原理与上面使用 **weak** 是一样的，两条强引用中其中一条标记为 **unowned** ，这样打破了循环引用，所以当 *xiaoming* 被置为 **nil** 时，所有变量得以释放。
 
-### unowned 与 weak 有什么区别呢？
+### unowned 与 weak
 ---
+
+在开发中用弱引用的地方一是当持有一个 *delegate* 属性变量时，二是在使用闭包时，什么时候用 **unowned**，什么时候用 **weak** 呢？当确定变量被访问时不会被释放则用 **unowned** 如果有被释放的可能就用 **weak**。在闭包中使用 **unowned** 或 **weak** 需要放在方括号中，可以同时使用多种标记。
+
+{% highlight swift %}
+lazy var someClosure: (Int, String) -> String = {
+    [unowned self, weak delegate = self.delegate!] (index: Int, stringToProcess: String) -> String in
+    // closure body goes here
+}
+{% endhighlight %}
+
+还有一点当使用 **weak** 时我们一般会做个判断，因为 **weak** 标记的变量一定是 **Optional** 值。
+
+{% highlight swift %}
+lazy var someClosure: (Int, String) -> String = {
+    [weak self] in
+    if let strongSelf = self {
+      // ...
+    }
+}
+{% endhighlight %}
+
+
+> **An unowned reference is expected to always have a value. As a result, ARC never sets an unowned reference’s value to nil, which means that unowned references are defined using nonoptional types.**
+
+
+> **Use an unowned reference only when you are sure that the reference always refers to an instance that has not been deallocated.
+If you try to access the value of an unowned reference after that instance has been deallocated, you’ll get a runtime error.**
+
+> **Define a capture in a closure as an unowned reference when the closure and the instance it captures will always refer to each other, and will always be deallocated at the same time.
+Conversely, define a capture as a weak reference when the captured reference may become nil at some point in the future. Weak references are always of an optional type, and automatically become nil when the instance they reference is deallocated. This enables you to check for their existence within the closure’s body.**
+
+
+[官方文档](https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/AutomaticReferenceCounting.html)
