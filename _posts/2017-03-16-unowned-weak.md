@@ -133,5 +133,6 @@ If you try to access the value of an unowned reference after that instance has b
 > **Define a capture in a closure as an unowned reference when the closure and the instance it captures will always refer to each other, and will always be deallocated at the same time.
 Conversely, define a capture as a weak reference when the captured reference may become nil at some point in the future. Weak references are always of an optional type, and automatically become nil when the instance they reference is deallocated. This enables you to check for their existence within the closure’s body.**
 
+[sample code](https://github.com/redtwowolf/redtwowolf.github.io/tree/master/_code/Swift/)
 
 [官方文档](https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/AutomaticReferenceCounting.html)
