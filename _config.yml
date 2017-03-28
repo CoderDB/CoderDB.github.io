@@ -27,7 +27,7 @@ theme_settings:
   stack_exchange:  # Full URL
 
   # Scripts
-  google_analytics: # Tracking ID, e.g. "UA-000000-01"
+  google_analytics: "UA-96323169-1" # Tracking ID, e.g. "UA-000000-01"
   disqus_shortname: "https-redtwowolf-github-io"
   katex: true # Enable if using math markup
 
