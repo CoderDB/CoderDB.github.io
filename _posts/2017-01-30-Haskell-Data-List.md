@@ -302,6 +302,56 @@ ghci>span (==5) [5..10]
 ([5],[6,7,8,9,10])
 {% endhighlight %}
 
+
+> **小插曲**
+
+在 Swift 中其实已经实现好了与 **takeWhile, dropWhile** 一样的方法，它们叫 **prefixWhile, dropWhile**
+
+{% highlight swift %}
+public protocol Sequence {
+  public func drop(while predicate: (Self.Iterator.Element) throws -> Bool) rethrows -> Self.SubSequence
+
+  public func prefix(while predicate: (Self.Iterator.Element) throws -> Bool) rethrows -> Self.SubSequence
+}
+{% endhighlight %}
+
+在 **Sequence** 协议中有上面的方法，我们试用一下
+
+{% highlight swift %}
+let test = Array(1...10)
+print(test)
+// [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+let drop = test1.drop(while: { $0 < 3 })
+let prefix = test1.prefix(while: { $0 < 3 })
+
+ print(drop)
+ // [3, 4, 5, 6, 7, 8, 9, 10]
+ print(prefix)
+ // [1, 2]
+{% endhighlight %}
+
+结合 **prefixWhile, dropWhile** 就可以轻松实现 **span** 了！
+
+{% highlight swift %}
+extension Sequence {
+    public func span(_ predicate: (Self.Iterator.Element) -> Bool) -> (Self.SubSequence, Self.SubSequence) {
+        return (prefix(while: predicate), drop(while: predicate))
+    }
+}
+{% endhighlight %}
+
+试试看是不是和 Haskell 中一样呢？
+
+{% highlight swift %}
+let span1 = test1.span { $0 > 3}
+let span2 = test1.span { $0 > 0}
+print(span1)
+print(span2)
+// (ArraySlice([]), ArraySlice([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]))
+// (ArraySlice([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]), ArraySlice([]))
+{% endhighlight %}
+
 > **break**
 
 将一个 List 在首次👉符合👈条件的地方断开，前后两部分以元组的形式返回。
