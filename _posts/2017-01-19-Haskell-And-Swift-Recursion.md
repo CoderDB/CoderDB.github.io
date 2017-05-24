@@ -2,7 +2,7 @@
 layout: post
 date: 2017-01-19
 title: Haskell And Swift （递归一）
-img: "darkgray.jpg"
+img: "haskell_recursion1.jpg"
 ---
 
 ![recursion](http://ogkg37m8j.bkt.clouddn.com/image/haskell-and-swift/recursion/recursion.jpg)
