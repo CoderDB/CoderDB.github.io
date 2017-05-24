@@ -2,7 +2,7 @@
 layout: post
 date: 2017-01-16
 title: Haskell And Swift (where, let, case)
-img: "mintgreen.jpg"
+img: "where_let_case.jpg"
 ---
 
 where
