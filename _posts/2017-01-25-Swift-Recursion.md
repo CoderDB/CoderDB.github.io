@@ -2,7 +2,7 @@
 layout: post
 date: 2017-01-25
 title: Swift 中的递归、尾递归
-img: "blue.jpg"
+img: "swift_recursion.jpg"
 ---
 
 **递归** 就是重复调用自身的一种技巧。
