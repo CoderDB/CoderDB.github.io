@@ -2,7 +2,7 @@
 layout: post
 date: 2017-03-16
 title: unowned 与 weak
-img: "blue.jpg"
+img: "unowned_weak.jpg"
 ---
 
 如何更好的避免循环引用？
