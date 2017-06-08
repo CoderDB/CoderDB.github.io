@@ -2,7 +2,7 @@
 layout: post
 date: 2017-02-04
 title: Haskell -- Data.Set
-feature-img: "img/pink.jpg"
+img: "pink.jpg"
 ---
 
 集合

@@ -2,7 +2,7 @@
 layout: post
 date: 2017-01-12
 title: Haskell And Swift (Typeclass)
-feature-img: "img/green.jpg"
+img: "green.jpg"
 ---
 
 **Typeclass** 可以理解为 **Swift** 中的 **Protocol** 。

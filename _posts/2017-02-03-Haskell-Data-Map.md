@@ -2,7 +2,7 @@
 layout: post
 date: 2017-02-03
 title: Haskell -- Data.Map
-feature-img: "img/bluepurple.jpg"
+img: "bluepurple.jpg"
 ---
 
 [key, value]

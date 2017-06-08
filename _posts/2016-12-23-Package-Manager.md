@@ -2,7 +2,7 @@
 layout: post
 date: 2016-12-23
 title: Cocoapods, Carthage
-feature-img: "img/orange.jpg"
+img: "orange.jpg"
 
 ---
 

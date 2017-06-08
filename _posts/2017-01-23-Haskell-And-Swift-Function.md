@@ -2,7 +2,7 @@
 layout: post
 date: 2017-01-23
 title: Haskell And Swift (函数)
-feature-img: "img/pink.jpg"
+img: "pink.jpg"
 ---
 
 函数其实和变量一样简单。变量是一个名词牵着一个字符串或其他什么，函数就是一个名词牵着一段代码块，甚至连这个名词都不需要。

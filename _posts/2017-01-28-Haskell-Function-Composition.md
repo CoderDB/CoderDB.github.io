@@ -2,7 +2,7 @@
 layout: post
 date: 2017-01-28
 title: Haskell 中的 Function Composition
-feature-img: "img/orange.jpg"
+img: "orange.jpg"
 ---
 
 $$(f \circ g)(x) = f(g(x))$$

@@ -2,7 +2,7 @@
 layout: post
 date: 2017-01-21
 title: Haskell And Swift （递归二）
-feature-img: "img/darkgray.jpg"
+img: "darkgray.jpg"
 ---
 
 [前一篇文章](https://redtwowolf.github.io/2017/01/16/Haskell-And-Swift-Recursion.html)中已经认识了 **递归** 是什么，并利用递归实现了斐波拉契数列。这篇就来看看如何更好的使用递归。

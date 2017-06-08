@@ -2,7 +2,7 @@
 layout: post
 date: 2017-01-15
 title: Haskell And Swift (Guard)
-feature-img: "img/purple.jpg"
+img: "purple.jpg"
 ---
 
 Guard

@@ -2,7 +2,7 @@
 layout: post
 date: 2017-01-14
 title: Haskell And Swift (Pattern matching)
-feature-img: "img/blue.jpg"
+img: "blue.jpg"
 ---
 
 <h2>模式匹配</h2>

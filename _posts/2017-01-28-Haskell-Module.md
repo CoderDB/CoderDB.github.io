@@ -2,7 +2,7 @@
 layout: post
 date: 2017-01-28
 title: Haskell 中的 Module
-feature-img: "img/pink.jpg"
+img: "pink.jpg"
 ---
 
 *模组* 就是一大袋花样众多的零食，拆了就吃。

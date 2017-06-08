@@ -2,7 +2,7 @@
 layout: post
 date: 2016-11-25
 title: 设计模式--不知道什么是设计模式
-feature-img: "img/green.jpg"
+img: "green.jpg"
 
 ---
 

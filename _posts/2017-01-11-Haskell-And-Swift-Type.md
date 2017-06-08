@@ -2,7 +2,7 @@
 layout: post
 date: 2017-01-11
 title: Haskell And Swift (Type)
-feature-img: "img/pink.jpg"
+img: "pink.jpg"
 ---
 
 <h2>Type</h2>

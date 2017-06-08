@@ -2,7 +2,7 @@
 layout: post
 date: 2017-01-25
 title: Swift 中的递归、尾递归
-feature-img: "img/blue.jpg"
+img: "blue.jpg"
 ---
 
 **递归** 就是重复调用自身的一种技巧。
