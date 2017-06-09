@@ -2,7 +2,7 @@
 layout: post
 date: 2017-02-01
 title: Haskell -- Data.Char
-img: "mintgreen.jpg"
+img: "haskell_data_char.jpg"
 ---
 
 包含一组处理字符的函数。

@@ -2,7 +2,7 @@
 layout: post
 date: 2017-02-04
 title: Haskell -- Data.Set
-img: "pink.jpg"
+img: "haskell_data_set.jpg"
 ---
 
 集合

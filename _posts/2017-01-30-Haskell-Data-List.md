@@ -2,7 +2,7 @@
 layout: post
 date: 2017-01-30
 title: Haskell -- Data.List
-img: "blue.jpg"
+img: "haskell_data_list.jpg"
 ---
 
 一个关于 List 操作的模组，比如 **map, filter** 都是属于它的。
