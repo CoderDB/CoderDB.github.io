@@ -2,7 +2,7 @@
 layout: post
 date: 2017-02-07
 title: Swift -- Element, Iterator, Sequence, Collection
-img: "blue.jpg"
+img: "swift_element_sequence_collection.png"
 ---
 
 是谁在背后默默支持你？
