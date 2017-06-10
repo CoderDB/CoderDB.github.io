@@ -2,7 +2,7 @@
 layout: post
 date: 2017-02-24
 title: UICollectionView 悬停 header 或 footer
-img: "pink.jpg"
+img: "UICollectionViewHoverHeaderFooter.gif"
 ---
 iOS9 之后只需要设置一个属性便可实现 UICollectionView 的 section header 或 footer 悬停效果
 
