@@ -2,7 +2,7 @@
 layout: post
 date: 2017-01-05
 title: Haskell And Swift
-img: "orange.jpg"
+img: "haskell_swift.png"
 ---
 
 <h2>一、为什么是 Haskell ?</h2>
