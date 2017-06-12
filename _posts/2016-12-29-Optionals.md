@@ -2,7 +2,7 @@
 layout: post
 date: 2016-12-29
 title: Optionals
-img: "pink.jpg"
+img: "optional.jpg"
 
 ---
 
