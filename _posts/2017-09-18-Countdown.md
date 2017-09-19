@@ -2,7 +2,7 @@
 layout: post
 date: 2017-09-18
 title: 记一次倒计时
-img: "Rx.jpg"
+img: "countdown.png"
 ---
 
 倒计时有很多种，我只爱你这一种
