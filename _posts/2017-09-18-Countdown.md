@@ -80,22 +80,24 @@ extension DispatchSource {
 
 到这里一个倒计时的类基本封装起来了！当然还可以再写几个方法公开出去以便使用者更加方便参数传递，但是目前这一种就够了！你要倒计时，你只需要告诉我截止的时间戳就好了！其他没你事儿了！不过这里还需再补充一点：对 **Int** 做个extension
 {% highlight swift %}
-   var days: Int {
-       return self / 86400
-   }
-   var hours: Int {
-       return (self % 86400) / 3600
-   }
-   var minutes: Int {
-       return (self % 3600) / 60
-   }
-   var seconds: Int {
-       return (self % 3600) % 60
-   }
-   /// 123456789 -> 5天10小时33分46秒
-   var dhms: String {
-       return "\(days)天" + "\(hours)小时" + "\(minutes)分" + "\(seconds)秒"
-   }
+extension Int {
+     var days: Int {
+         return self / 86400
+     }
+     var hours: Int {
+         return (self % 86400) / 3600
+     }
+     var minutes: Int {
+         return (self % 3600) / 60
+     }
+     var seconds: Int {
+         return (self % 3600) % 60
+     }
+     /// 123456789 -> 5天10小时33分46秒
+     var dhms: String {
+         return "\(days)天" + "\(hours)小时" + "\(minutes)分" + "\(seconds)秒"
+     }
+}
 {% endhighlight %}
 
 下面就看看怎么使用，举个🌰倒计时10秒钟
@@ -110,3 +112,5 @@ CountDown.default.start(terminate: Int(terminate), onMain: { (sec) in
    self.timeLabel.text = "倒计时结束了，怎么没💥💥😿😿😿"
 }
 {% endhighlight %}
+
+[Demo](https://github.com/redtwowolf/Demos/tree/master/Countdown)
