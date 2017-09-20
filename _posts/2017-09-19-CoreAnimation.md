@@ -2,12 +2,12 @@
 layout: post
 date: 2017-09-19
 title: 一篇关于学习运用CoreAnimation的文章
-img: "countdown.png"
+img: "coreanimation.png"
 ---
 
 ### 实现效果
 
-![gif](http://ogkg37m8j.bkt.clouddn.com/image/gif/countdown.gif)
+![gif](http://ogkg37m8j.bkt.clouddn.com/image/gif/coreanimation.gif)
 
 ### 动画分解
 
