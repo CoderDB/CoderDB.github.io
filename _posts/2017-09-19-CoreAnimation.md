@@ -137,3 +137,4 @@ extension CALayer {
 
 
 [Demo](https://github.com/redtwowolf/Demos/tree/master/CoreAnimationDemo)
+[原文链接](http://merowing.info/2015/12/details-matter---harnessing-the-power-of-coreanimation/)
